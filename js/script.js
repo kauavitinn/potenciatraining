@@ -103,7 +103,10 @@ document.querySelectorAll(".nav a").forEach(link => {
     });
 });
 
-openLogin.addEventListener("click", () => openModal(loginModal));
+openLogin.addEventListener("click", () => {
+    renderAuthState();
+    openModal(loginModal);
+});
 closeLogin.addEventListener("click", () => closeModal(loginModal));
 closeContent.addEventListener("click", () => closeModal(contentModal));
 
@@ -136,12 +139,157 @@ document.querySelectorAll(".method-tab").forEach(tab => {
     });
 });
 
-document.getElementById("loginForm").addEventListener("submit", event => {
-    event.preventDefault();
-    const message = document.getElementById("loginMessage");
-    message.textContent = "Área demonstrativa: o acesso real será liberado aos alunos matriculados.";
-    message.className = "login-message success";
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
+const authTabs = document.getElementById("authTabs");
+const authHeading = document.getElementById("authHeading");
+const authIntro = document.getElementById("authIntro");
+const loginMessage = document.getElementById("loginMessage");
+const registerMessage = document.getElementById("registerMessage");
+const accountPanel = document.getElementById("accountPanel");
+const accountName = document.getElementById("accountName");
+const accountEmail = document.getElementById("accountEmail");
+const accountAvatar = document.getElementById("accountAvatar");
+const logoutButton = document.getElementById("logoutButton");
+const AUTH_USERS_KEY = "potenciaUsers";
+const AUTH_SESSION_KEY = "potenciaSession";
+
+function getUsers() {
+    try {
+        return JSON.parse(localStorage.getItem(AUTH_USERS_KEY) || "[]");
+    } catch {
+        return [];
+    }
+}
+
+async function hashPassword(password, salt) {
+    const bytes = new TextEncoder().encode(`${salt}:${password}`);
+    const digest = await crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
+}
+
+function setAuthMessage(element, text, type) {
+    element.textContent = text;
+    element.className = `login-message ${type}`;
+}
+
+function setAuthMode(mode) {
+    const isRegister = mode === "register";
+    loginForm.hidden = isRegister;
+    registerForm.hidden = !isRegister;
+    accountPanel.hidden = true;
+    authTabs.hidden = false;
+    authHeading.textContent = isRegister ? "Crie sua conta" : "Bem-vindo de volta!";
+    authIntro.textContent = isRegister
+        ? "Cadastre-se para acompanhar conteúdos e novidades."
+        : "Entre na sua conta para acessar seus conteúdos.";
+    document.querySelectorAll("[data-auth-mode]").forEach(button => {
+        const active = button.dataset.authMode === mode;
+        button.classList.toggle("active", active);
+        if (button.getAttribute("role") === "tab") {
+            button.setAttribute("aria-selected", String(active));
+        }
+    });
+    loginMessage.textContent = "";
+    registerMessage.textContent = "";
+    window.setTimeout(() => (isRegister ? registerForm : loginForm).querySelector("input")?.focus(), 0);
+}
+
+function renderAuthState() {
+    const sessionId = localStorage.getItem(AUTH_SESSION_KEY);
+    const user = getUsers().find(item => item.id === sessionId);
+    if (!user) {
+        openLogin.textContent = "Entrar";
+        setAuthMode("login");
+        return;
+    }
+    authTabs.hidden = true;
+    loginForm.hidden = true;
+    registerForm.hidden = true;
+    accountPanel.hidden = false;
+    authHeading.textContent = "Sua conta";
+    authIntro.textContent = "Você está conectado à Potência Training.";
+    accountName.textContent = user.name;
+    accountEmail.textContent = user.email;
+    accountAvatar.textContent = user.name.trim().charAt(0).toUpperCase();
+    openLogin.textContent = "Minha conta";
+}
+
+document.querySelectorAll("[data-auth-mode]").forEach(button => {
+    button.addEventListener("click", () => setAuthMode(button.dataset.authMode));
 });
+
+registerForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const name = form.elements.name.value.trim();
+    const email = form.elements.email.value.trim().toLowerCase();
+    const password = form.elements.password.value;
+    const confirmation = form.elements.confirmPassword.value;
+
+    if (name.length < 2) {
+        setAuthMessage(registerMessage, "Informe seu nome completo.", "error");
+        return;
+    }
+    if (password.length < 6) {
+        setAuthMessage(registerMessage, "A senha precisa ter pelo menos 6 caracteres.", "error");
+        return;
+    }
+    if (password !== confirmation) {
+        setAuthMessage(registerMessage, "As senhas não coincidem.", "error");
+        return;
+    }
+
+    const users = getUsers();
+    if (users.some(user => user.email === email)) {
+        setAuthMessage(registerMessage, "Já existe uma conta com este e-mail.", "error");
+        return;
+    }
+
+    const salt = crypto.randomUUID();
+    const user = {
+        id: crypto.randomUUID(),
+        name,
+        email,
+        salt,
+        passwordHash: await hashPassword(password, salt),
+        createdAt: new Date().toISOString()
+    };
+    users.push(user);
+    localStorage.setItem(AUTH_USERS_KEY, JSON.stringify(users));
+    localStorage.setItem(AUTH_SESSION_KEY, user.id);
+    form.reset();
+    renderAuthState();
+});
+
+loginForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const email = form.elements.email.value.trim().toLowerCase();
+    const user = getUsers().find(item => item.email === email);
+
+    if (!user) {
+        setAuthMessage(loginMessage, "Conta não encontrada. Crie seu cadastro primeiro.", "error");
+        return;
+    }
+
+    const passwordHash = await hashPassword(form.elements.password.value, user.salt);
+    if (passwordHash !== user.passwordHash) {
+        setAuthMessage(loginMessage, "Senha incorreta.", "error");
+        return;
+    }
+
+    localStorage.setItem(AUTH_SESSION_KEY, user.id);
+    form.reset();
+    renderAuthState();
+});
+
+logoutButton.addEventListener("click", () => {
+    localStorage.removeItem(AUTH_SESSION_KEY);
+    renderAuthState();
+});
+
+renderAuthState();
 
 document.getElementById("buyCourse").addEventListener("click", () => {
     document.getElementById("interestForm").scrollIntoView({ behavior: "smooth", block: "center" });

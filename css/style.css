@@ -2044,3 +2044,127 @@ body.nav-moving::before {
         flex-basis: 32px;
     }
 }
+
+/* AUTENTICAÇÃO LOCAL */
+.auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin: 22px 0;
+    padding: 5px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #0d110e;
+}
+
+.auth-tab {
+    min-height: 44px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--muted);
+    font-weight: 800;
+    transition: 0.22s ease;
+}
+
+.auth-tab.active {
+    background: var(--accent);
+    color: #080a09;
+    box-shadow: 0 7px 20px rgba(200, 255, 57, 0.12);
+}
+
+.auth-form[hidden],
+.account-panel[hidden],
+.auth-tabs[hidden] {
+    display: none;
+}
+
+.auth-form .btn {
+    width: 100%;
+}
+
+.auth-switch {
+    width: 100%;
+    margin-top: 6px;
+    padding: 8px;
+    border: 0;
+    background: transparent;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.auth-switch:hover {
+    text-decoration: underline;
+}
+
+.auth-consent {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin: 4px 0 18px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.auth-consent input {
+    width: 17px;
+    height: 17px;
+    margin-top: 1px;
+    accent-color: var(--accent);
+}
+
+.auth-local-note {
+    margin: 16px 0 0 !important;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: #79827b !important;
+    font-size: 10px !important;
+}
+
+.account-panel {
+    padding: 24px;
+    border: 1px solid rgba(200, 255, 57, 0.22);
+    border-radius: 18px;
+    background: #0d120e;
+    text-align: center;
+}
+
+.account-avatar {
+    width: 68px;
+    height: 68px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #080a09;
+    font-family: 'Oswald', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.account-panel h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+.account-panel p {
+    margin: 2px 0 5px;
+    color: white;
+    font-size: 13px;
+}
+
+.account-panel span {
+    display: block;
+    margin-bottom: 20px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.account-panel .btn {
+    width: 100%;
+}
