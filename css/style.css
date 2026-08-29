@@ -217,7 +217,7 @@ button {
             rgba(5, 7, 6, 0.8),
             rgba(5, 7, 6, 0.35)
         ),
-        url("../img/hero.jpg") center / cover no-repeat;
+        url("../img/hero-background-v2.png") center / cover no-repeat;
 }
 
 .hero::after {
@@ -1561,5 +1561,104 @@ button,
 
     .video-cover {
         min-height: 230px;
+    }
+}
+
+/* HERO VISUAL V2 */
+.hero {
+    min-height: 900px;
+    background-position: center;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(4, 7, 5, 0.94) 0%, rgba(4, 7, 5, 0.72) 48%, rgba(4, 7, 5, 0.16) 100%);
+}
+
+.hero-text {
+    position: relative;
+    max-width: 790px;
+}
+
+.hero-training-banner {
+    position: relative;
+    width: min(680px, 100%);
+    height: 220px;
+    margin: 34px 0 0;
+    overflow: hidden;
+    border: 1px solid rgba(200, 255, 57, 0.28);
+    border-radius: 22px;
+    background: #0b0e0c;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+}
+
+.hero-training-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 35%, rgba(5, 8, 6, 0.82) 100%);
+}
+
+.hero-training-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-training-banner figcaption {
+    position: absolute;
+    z-index: 2;
+    right: 24px;
+    bottom: 22px;
+    width: min(245px, 45%);
+    text-align: right;
+}
+
+.hero-training-banner strong,
+.hero-training-banner span {
+    display: block;
+}
+
+.hero-training-banner strong {
+    margin-bottom: 6px;
+    color: var(--accent);
+    font-family: 'Oswald', sans-serif;
+    font-size: 23px;
+    text-transform: uppercase;
+}
+
+.hero-training-banner span {
+    color: #e4e9e5;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+@media (max-width: 650px) {
+    .hero {
+        min-height: 860px;
+        background-position: 64% center;
+    }
+
+    .hero::before {
+        background: linear-gradient(180deg, rgba(4, 7, 5, 0.9) 0%, rgba(4, 7, 5, 0.76) 62%, rgba(4, 7, 5, 0.94) 100%);
+    }
+
+    .hero-training-banner {
+        height: 250px;
+    }
+
+    .hero-training-banner::after {
+        background: linear-gradient(0deg, rgba(5, 8, 6, 0.92), transparent 70%);
+    }
+
+    .hero-training-banner figcaption {
+        right: 18px;
+        bottom: 16px;
+        left: 18px;
+        width: auto;
+        text-align: left;
     }
 }
