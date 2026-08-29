@@ -1662,3 +1662,329 @@ button,
         text-align: left;
     }
 }
+
+/* NAVEGAÇÃO ANIMADA */
+body::before {
+    content: "";
+    position: fixed;
+    z-index: 3000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    pointer-events: none;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    opacity: 0;
+}
+
+body.nav-moving::before {
+    animation: navigation-progress 0.72s ease both;
+}
+
+.nav a {
+    position: relative;
+    isolation: isolate;
+    padding: 10px 4px;
+    border-radius: 8px;
+}
+
+.nav a::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 5px -8px;
+    border-radius: 10px;
+    background: rgba(200, 255, 57, 0.14);
+    transform: scale(0.55);
+    opacity: 0;
+}
+
+.nav a.nav-click {
+    color: var(--accent);
+    animation: nav-link-click 0.42s ease;
+}
+
+.nav a.nav-click::before {
+    animation: nav-link-ripple 0.42s ease;
+}
+
+.section-arrival {
+    animation: section-arrival 0.6s ease both;
+}
+
+@keyframes nav-link-click {
+    0% { transform: scale(1); }
+    40% { transform: scale(0.9); }
+    75% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+@keyframes nav-link-ripple {
+    0% { opacity: 0; transform: scale(0.45); }
+    45% { opacity: 1; }
+    100% { opacity: 0; transform: scale(1.35); }
+}
+
+@keyframes navigation-progress {
+    0% { opacity: 1; transform: scaleX(0); }
+    70% { opacity: 1; transform: scaleX(1); }
+    100% { opacity: 0; transform: scaleX(1); }
+}
+
+@keyframes section-arrival {
+    0% { opacity: 0.45; transform: translateY(20px); filter: brightness(0.8); }
+    100% { opacity: 1; transform: translateY(0); filter: brightness(1); }
+}
+
+/* CAMADA MOBILE-FIRST: celular é o padrão */
+.container {
+    width: min(100% - 28px, var(--container));
+}
+
+.header-content {
+    min-height: 68px;
+    gap: 10px;
+}
+
+.logo {
+    font-size: 20px;
+}
+
+.btn-login {
+    display: none;
+}
+
+.menu-mobile {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+}
+
+.nav {
+    position: absolute;
+    top: 68px;
+    right: 14px;
+    left: 14px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 0 0 18px 18px;
+    background: rgba(8, 10, 9, 0.98);
+    box-shadow: 0 22px 45px rgba(0, 0, 0, 0.45);
+}
+
+.nav.active {
+    display: flex;
+    animation: mobile-menu-in 0.24s ease both;
+}
+
+.nav a {
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+}
+
+.hero {
+    min-height: 820px;
+    background-position: 64% center;
+}
+
+.hero-content {
+    padding: 72px 0 58px;
+}
+
+.hero h1 {
+    font-size: clamp(48px, 15vw, 64px);
+}
+
+.hero p {
+    font-size: 15px;
+}
+
+.hero-buttons {
+    flex-direction: column;
+}
+
+.hero-buttons .btn {
+    width: 100%;
+}
+
+.features,
+.training-grid,
+.contact-grid,
+.footer-content,
+.method-content,
+.course-content,
+.course-video-block,
+.interest-box {
+    grid-template-columns: 1fr;
+}
+
+.about,
+.trainings,
+.method,
+.preview,
+.course,
+.contact {
+    padding: 72px 0;
+}
+
+.method-image,
+.method-image img {
+    min-height: 340px;
+}
+
+.interest-form {
+    grid-template-columns: 1fr;
+}
+
+@keyframes mobile-menu-in {
+    from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Tablet: expansão progressiva */
+@media (min-width: 651px) {
+    .container {
+        width: min(100% - 40px, var(--container));
+    }
+
+    .btn-login {
+        display: inline-flex;
+    }
+
+    .features,
+    .training-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero {
+        min-height: 860px;
+        background-position: center;
+    }
+
+    .hero-buttons {
+        flex-direction: row;
+    }
+
+    .hero-buttons .btn {
+        width: auto;
+    }
+
+    .interest-form {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .interest-form .btn {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Desktop: navegação aberta e grades completas */
+@media (min-width: 1001px) {
+    .header-content {
+        min-height: 76px;
+        gap: 25px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .menu-mobile {
+        display: none;
+    }
+
+    .nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 25px;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .nav a {
+        min-height: auto;
+        display: inline-flex;
+        padding: 10px 4px;
+    }
+
+    .features {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .training-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .method-content,
+    .course-content {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .course-content {
+        grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    .course-video-block {
+        grid-template-columns: 0.85fr 1.15fr;
+    }
+
+    .interest-box {
+        grid-template-columns: 1fr 1.2fr;
+    }
+
+    .interest-form {
+        grid-template-columns: 1fr 1fr auto;
+    }
+
+    .interest-form .btn {
+        grid-column: auto;
+    }
+
+    .footer-content {
+        grid-template-columns: 1.5fr 1fr 1fr;
+    }
+
+    .hero {
+        min-height: 900px;
+    }
+
+    .hero-content {
+        padding: 100px 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

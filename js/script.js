@@ -169,12 +169,32 @@ document.getElementById("interestForm").addEventListener("submit", event => {
     form.reset();
 });
 
+function animateNavigation(link, target) {
+    link.classList.remove("nav-click");
+    void link.offsetWidth;
+    link.classList.add("nav-click");
+    document.body.classList.add("nav-moving");
+
+    window.setTimeout(() => {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        target.classList.remove("section-arrival");
+        void target.offsetWidth;
+        target.classList.add("section-arrival");
+    }, 150);
+
+    window.setTimeout(() => {
+        document.body.classList.remove("nav-moving");
+        link.classList.remove("nav-click");
+        target.classList.remove("section-arrival");
+    }, 850);
+}
+
 document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener("click", event => {
         const target = document.querySelector(link.getAttribute("href"));
         if (!target) return;
         event.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        animateNavigation(link, target);
     });
 });
 
