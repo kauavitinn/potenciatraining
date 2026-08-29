@@ -1,493 +1,202 @@
-// ==========================================
-// POTÊNCIA TRAINING
-// JavaScript principal do site
-// ==========================================
-
-
-// ==========================================
-// MENU MOBILE
-// ==========================================
-
 const menuMobile = document.getElementById("menuMobile");
 const nav = document.querySelector(".nav");
-
-menuMobile.addEventListener("click", () => {
-
-    nav.classList.toggle("active");
-
-});
-
-
-// Fecha o menu ao clicar em algum link
-const navLinks = document.querySelectorAll(".nav a");
-
-navLinks.forEach((link) => {
-
-    link.addEventListener("click", () => {
-
-        nav.classList.remove("active");
-
-    });
-
-});
-
-
-// ==========================================
-// MODAL DE LOGIN
-// ==========================================
-
+const loginModal = document.getElementById("loginModal");
+const contentModal = document.getElementById("contentModal");
 const openLogin = document.getElementById("openLogin");
 const closeLogin = document.getElementById("closeLogin");
-const loginModal = document.getElementById("loginModal");
-
-
-// Abrir modal
-openLogin.addEventListener("click", () => {
-
-    loginModal.classList.add("active");
-    loginModal.setAttribute("aria-hidden", "false");
-
-});
-
-
-// Fechar modal
-closeLogin.addEventListener("click", () => {
-
-    loginModal.classList.remove("active");
-    loginModal.setAttribute("aria-hidden", "true");
-
-});
-
-
-// ==========================================
-// FECHAR MODAIS CLICANDO FORA
-// ==========================================
-
-window.addEventListener("click", (event) => {
-
-    if (event.target === loginModal) {
-
-        loginModal.classList.remove("active");
-        loginModal.setAttribute("aria-hidden", "true");
-
-    }
-
-});
-
-
-// ==========================================
-// LOGIN DEMONSTRATIVO
-// ==========================================
-
-const loginForm = document.getElementById("loginForm");
-const loginMessage = document.getElementById("loginMessage");
-
-loginForm.addEventListener("submit", (event) => {
-
-    // Impede o formulário de recarregar a página
-    event.preventDefault();
-
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-
-
-    // Verifica se os campos estão preenchidos
-    if (email === "" || password === "") {
-
-        loginMessage.textContent = "Preencha todos os campos.";
-        loginMessage.className = "login-message error";
-
-        return;
-    }
-
-
-    // Login apenas para demonstração
-    if (
-        email === "aluno@potencia.com" &&
-        password === "potencia80"
-    ) {
-
-        loginMessage.textContent = "Login realizado com sucesso!";
-        loginMessage.className = "login-message success";
-
-
-        // Altera o botão de login
-        openLogin.textContent = "Área do aluno";
-
-
-        // Aguarda um pouco antes de fechar o modal
-        setTimeout(() => {
-
-            loginModal.classList.remove("active");
-            loginModal.setAttribute("aria-hidden", "true");
-
-            loginMessage.textContent = "";
-
-            loginForm.reset();
-
-        }, 1500);
-
-    } else {
-
-        loginMessage.textContent =
-            "E-mail ou senha incorretos.";
-
-        loginMessage.className = "login-message error";
-
-    }
-
-});
-
-
-// ==========================================
-// ABAS DO MÉTODO DE TREINAMENTO
-// ==========================================
-
-const methodTabs = document.querySelectorAll(".method-tab");
-const tabContents = document.querySelectorAll(".tab-content");
-
-
-methodTabs.forEach((tab) => {
-
-    tab.addEventListener("click", () => {
-
-        // Remove active de todas as abas
-        methodTabs.forEach((item) => {
-
-            item.classList.remove("active");
-
-        });
-
-
-        // Remove active de todos os conteúdos
-        tabContents.forEach((content) => {
-
-            content.classList.remove("active");
-
-        });
-
-
-        // Ativa a aba clicada
-        tab.classList.add("active");
-
-
-        // Descobre qual conteúdo deve ser exibido
-        const tabId = tab.getAttribute("data-tab");
-
-        const selectedContent = document.getElementById(tabId);
-
-
-        if (selectedContent) {
-
-            selectedContent.classList.add("active");
-
-        }
-
-    });
-
-});
-
-
-// ==========================================
-// MODAL DE PRÉVIA DOS CONTEÚDOS
-// ==========================================
-
-const contentModal = document.getElementById("contentModal");
 const closeContent = document.getElementById("closeContent");
 const contentTitle = document.getElementById("contentTitle");
 const contentDescription = document.getElementById("contentDescription");
+const contentPoints = document.getElementById("contentPoints");
+const videoFrame = document.getElementById("videoFrame");
+const contentVideo = document.getElementById("contentVideo");
 
-const contentButtons = document.querySelectorAll(
-    ".link-button"
-);
-
-
-// Conteúdos disponíveis
-const contents = {
-
+const presentations = {
     musculacao: {
-
         title: "Musculação",
-
-        description:
-            "Nesta área você conhecerá os principais fundamentos da musculação, incluindo exercícios básicos, organização do treino, força, resistência e progressão."
+        description: "Uma introdução aos fundamentos que dão segurança e direção ao treino de força.",
+        video: "https://www.youtube-nocookie.com/embed/7_UsPk-VF50?rel=0",
+        points: ["Execução e segurança", "Volume, intensidade e descanso", "Organização para iniciantes"]
     },
-
     funcional: {
-
-        title: "Treinamento Funcional",
-
-        description:
-            "Conheça estratégias para trabalhar mobilidade, equilíbrio, coordenação, resistência e movimentos que podem melhorar sua capacidade física."
+        title: "Treinamento funcional",
+        description: "Entenda como movimentos integrados desenvolvem mobilidade, equilíbrio, força e coordenação.",
+        video: "https://www.youtube-nocookie.com/embed/OoNgKjWst4s?rel=0",
+        points: ["Padrões de movimento", "Condicionamento global", "Adaptação à rotina"]
     },
-
     performance: {
-
-        title: "Preparação Física",
-
-        description:
-            "Aprenda conceitos relacionados à preparação física, capacidade cardiorrespiratória, resistência, força e desenvolvimento do desempenho."
+        title: "Preparação física",
+        description: "Conheça os princípios usados para planejar evolução, resistência e desempenho.",
+        video: "https://www.youtube-nocookie.com/embed/I6hQzk_ua-4?rel=0",
+        points: ["Volume e intensidade", "Progressão planejada", "Recuperação e desempenho"]
+    },
+    curso: {
+        title: "Curso Potência Training",
+        description: "Veja uma prévia dos princípios que orientam a jornada do básico à evolução consistente.",
+        video: "https://www.youtube-nocookie.com/embed/I6hQzk_ua-4?rel=0",
+        points: ["Fundamentos do treinamento", "Rotina e progressão", "Adaptação para diferentes níveis", "Material de apoio"]
     }
-
 };
 
-
-// Abre o conteúdo correspondente
-contentButtons.forEach((button) => {
-
-    button.addEventListener("click", () => {
-
-        const contentName =
-            button.getAttribute("data-content");
-
-        const selectedContent =
-            contents[contentName];
-
-
-        if (selectedContent) {
-
-            contentTitle.textContent =
-                selectedContent.title;
-
-            contentDescription.textContent =
-                selectedContent.description;
-
-            contentModal.classList.add("active");
-
-            contentModal.setAttribute(
-                "aria-hidden",
-                "false"
-            );
-
-        }
-
-    });
-
-});
-
-
-// Fecha o modal
-closeContent.addEventListener("click", () => {
-
-    contentModal.classList.remove("active");
-
-    contentModal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-});
-
-
-// Fecha modal clicando fora
-window.addEventListener("click", (event) => {
-
-    if (event.target === contentModal) {
-
-        contentModal.classList.remove("active");
-
-        contentModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-    }
-
-});
-
-
-// ==========================================
-// PRÉVIAS DAS AULAS
-// ==========================================
-
-const previewButtons = document.querySelectorAll(
-    ".preview-button"
-);
-
-
-// Conteúdo das aulas demonstrativas
 const lessons = {
-
     fundamentos: {
-
-        title: "Aula 01 — Fundamentos do treinamento",
-
-        description:
-            "Nesta aula você conhecerá conceitos fundamentais para começar a estruturar um treinamento, entendendo frequência, intensidade, volume e execução dos exercícios."
+        title: "Aula 01 — Fundamentos",
+        description: "Você aprenderá frequência, intensidade, volume, descanso e execução para estruturar um treino consciente.",
+        points: ["Princípios essenciais", "Escolha de exercícios", "Erros mais comuns"]
     },
-
     rotina: {
-
         title: "Aula 02 — Organização da rotina",
-
-        description:
-            "Aprenda como organizar os seus treinos de acordo com sua rotina, disponibilidade e objetivos, buscando uma prática consistente."
+        description: "Aprenda a distribuir os treinos conforme sua disponibilidade, experiência e objetivo.",
+        points: ["Divisão semanal", "Consistência", "Recuperação"]
     },
-
     progressao: {
-
         title: "Aula 03 — Progressão",
-
-        description:
-            "Entenda o princípio da progressão e como aumentar gradualmente o desafio dos exercícios para continuar evoluindo."
+        description: "Entenda como aumentar o desafio gradualmente sem perder qualidade de movimento.",
+        points: ["Progressão de carga", "Registro do treino", "Quando ajustar o plano"]
     }
-
 };
 
+function openModal(modal) {
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    const focusTarget = modal.querySelector("input, button");
+    if (focusTarget) focusTarget.focus();
+}
 
-previewButtons.forEach((button) => {
+function stopVideo() {
+    contentVideo.src = "";
+    videoFrame.hidden = true;
+}
 
+function closeModal(modal) {
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    if (modal === contentModal) stopVideo();
+}
+
+function renderPoints(points = []) {
+    contentPoints.innerHTML = points.map(point => `<li>${point}</li>`).join("");
+}
+
+function showPresentation(key) {
+    const item = presentations[key];
+    if (!item) return;
+    contentTitle.textContent = item.title;
+    contentDescription.textContent = item.description;
+    renderPoints(item.points);
+    contentVideo.src = item.video;
+    videoFrame.hidden = false;
+    openModal(contentModal);
+}
+
+menuMobile.addEventListener("click", () => {
+    const active = nav.classList.toggle("active");
+    menuMobile.setAttribute("aria-expanded", String(active));
+});
+
+document.querySelectorAll(".nav a").forEach(link => {
+    link.addEventListener("click", () => {
+        nav.classList.remove("active");
+        menuMobile.setAttribute("aria-expanded", "false");
+    });
+});
+
+openLogin.addEventListener("click", () => openModal(loginModal));
+closeLogin.addEventListener("click", () => closeModal(loginModal));
+closeContent.addEventListener("click", () => closeModal(contentModal));
+
+document.querySelectorAll(".link-button").forEach(button => {
+    button.addEventListener("click", () => showPresentation(button.dataset.content));
+});
+
+document.querySelectorAll(".video-trigger").forEach(button => {
+    button.addEventListener("click", () => showPresentation(button.dataset.video));
+});
+
+document.querySelectorAll(".preview-button").forEach(button => {
     button.addEventListener("click", () => {
-
-        const lessonName =
-            button.getAttribute("data-lesson");
-
-        const lesson =
-            lessons[lessonName];
-
-
-        if (lesson) {
-
-            contentTitle.textContent =
-                lesson.title;
-
-            contentDescription.textContent =
-                lesson.description;
-
-            contentModal.classList.add("active");
-
-            contentModal.setAttribute(
-                "aria-hidden",
-                "false"
-            );
-
-        }
-
+        const lesson = lessons[button.dataset.lesson];
+        if (!lesson) return;
+        contentTitle.textContent = lesson.title;
+        contentDescription.textContent = lesson.description;
+        renderPoints(lesson.points);
+        stopVideo();
+        openModal(contentModal);
     });
-
 });
 
-
-// ==========================================
-// BOTÃO DE COMPRA
-// ==========================================
-
-const buyCourse = document.getElementById("buyCourse");
-
-
-buyCourse.addEventListener("click", () => {
-
-    alert(
-        "Você será direcionado para o pagamento do curso Potência Training."
-    );
-
-});
-
-
-// ==========================================
-// SCROLL SUAVE
-// ==========================================
-
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-
-    link.addEventListener("click", function (event) {
-
-        const targetId = this.getAttribute("href");
-
-        const target = document.querySelector(targetId);
-
-
-        if (target) {
-
-            event.preventDefault();
-
-            target.scrollIntoView({
-
-                behavior: "smooth",
-
-                block: "start"
-
-            });
-
-        }
-
+document.querySelectorAll(".method-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+        document.querySelectorAll(".method-tab").forEach(item => item.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(item => item.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.tab)?.classList.add("active");
     });
-
 });
 
+document.getElementById("loginForm").addEventListener("submit", event => {
+    event.preventDefault();
+    const message = document.getElementById("loginMessage");
+    message.textContent = "Área demonstrativa: o acesso real será liberado aos alunos matriculados.";
+    message.className = "login-message success";
+});
 
-// ==========================================
-// ANIMAÇÃO AO APARECER NA TELA
-// ==========================================
+document.getElementById("buyCourse").addEventListener("click", () => {
+    document.getElementById("interestForm").scrollIntoView({ behavior: "smooth", block: "center" });
+    document.getElementById("interestName").focus({ preventScroll: true });
+});
 
-const animatedElements = document.querySelectorAll(
-    ".feature-card, .training-card, .preview-item, .contact-card"
-);
-
-
-const observer = new IntersectionObserver(
-
-    (entries) => {
-
-        entries.forEach((entry) => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.classList.add("show");
-
-                observer.unobserve(entry.target);
-
-            }
-
-        });
-
-    },
-
-    {
-        threshold: 0.15
+document.getElementById("interestForm").addEventListener("submit", event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const signup = {
+        name: form.elements.name.value.trim(),
+        email: form.elements.email.value.trim(),
+        createdAt: new Date().toISOString()
+    };
+    const signups = JSON.parse(localStorage.getItem("potenciaInterest") || "[]");
+    const alreadyExists = signups.some(item => item.email.toLowerCase() === signup.email.toLowerCase());
+    const message = document.getElementById("interestMessage");
+    if (alreadyExists) {
+        message.textContent = "Este e-mail já está na lista. Avisaremos você!";
+        return;
     }
-
-);
-
-
-animatedElements.forEach((element) => {
-
-    observer.observe(element);
-
+    signups.push(signup);
+    localStorage.setItem("potenciaInterest", JSON.stringify(signups));
+    message.textContent = `Tudo certo, ${signup.name}! Seu interesse foi registrado neste dispositivo.`;
+    form.reset();
 });
 
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener("click", event => {
+        const target = document.querySelector(link.getAttribute("href"));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+});
 
-// ==========================================
-// TECLA ESC FECHA OS MODAIS
-// ==========================================
+window.addEventListener("click", event => {
+    if (event.target === loginModal) closeModal(loginModal);
+    if (event.target === contentModal) closeModal(contentModal);
+});
 
-document.addEventListener("keydown", (event) => {
-
+document.addEventListener("keydown", event => {
     if (event.key === "Escape") {
-
-        loginModal.classList.remove("active");
-
-        contentModal.classList.remove("active");
-
-        loginModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        contentModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
+        closeModal(loginModal);
+        closeModal(contentModal);
     }
-
 });
 
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.15 });
 
-// ==========================================
-// MENSAGEM NO CONSOLE
-// ==========================================
-
-console.log(
-    "Potência Training carregado com sucesso! 💪"
-);
+document.querySelectorAll(".feature-card, .training-card, .preview-item, .contact-card").forEach(element => observer.observe(element));

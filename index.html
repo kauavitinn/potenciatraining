@@ -286,7 +286,7 @@
                         <div class="training-image">
 
                             <img 
-                                src="img/treino1.jpg"
+                                src="img/musculacao-training.png"
                                 alt="Treino de musculação"
                             >
 
@@ -311,7 +311,7 @@
                                 class="link-button"
                                 data-content="musculacao"
                             >
-                                Ver conteúdo →
+                                ▶ Assistir apresentação
                             </button>
 
                         </div>
@@ -326,7 +326,7 @@
                         <div class="training-image">
 
                             <img 
-                                src="img/treino2.jpg"
+                                src="img/funcional-training.png"
                                 alt="Treinamento funcional"
                             >
 
@@ -351,7 +351,7 @@
                                 class="link-button"
                                 data-content="funcional"
                             >
-                                Ver conteúdo →
+                                ▶ Assistir apresentação
                             </button>
 
                         </div>
@@ -366,7 +366,7 @@
                         <div class="training-image">
 
                             <img 
-                                src="img/treino3.jpg"
+                                src="img/performance-training.png"
                                 alt="Treino para performance"
                             >
 
@@ -391,7 +391,7 @@
                                 class="link-button"
                                 data-content="performance"
                             >
-                                Ver conteúdo →
+                                ▶ Assistir apresentação
                             </button>
 
                         </div>
@@ -416,7 +416,7 @@
                 <div class="method-image">
 
                     <img 
-                        src="img/alunos.jpg"
+                        src="img/metodo-training.png"
                         alt="Pessoas treinando em uma academia"
                     >
 
@@ -657,6 +657,19 @@
         ========================== -->
 
         <section class="course" id="curso">
+            <div class="container course-video-block">
+                <div class="course-video-copy">
+                    <span class="section-tag">CONHEÇA O CURSO</span>
+                    <h2>Veja como funciona a <strong>jornada completa.</strong></h2>
+                    <p>Nesta apresentação você entende a proposta do curso, os fundamentos abordados e como transformar teoria em uma rotina de treino consistente.</p>
+                    <button class="btn btn-secondary video-trigger" data-video="curso">▶ Assistir apresentação do curso</button>
+                </div>
+                <button class="video-cover video-trigger" data-video="curso" aria-label="Assistir apresentação do curso">
+                    <img src="img/metodo-training.png" alt="Turma treinando com acompanhamento profissional">
+                    <span class="video-play">▶</span>
+                    <span class="video-duration">APRESENTAÇÃO</span>
+                </button>
+            </div>
 
             <div class="container course-content">
 
@@ -752,6 +765,22 @@
 
             </div>
 
+
+            <div class="container interest-box">
+                <div>
+                    <span class="section-tag">LISTA DE INTERESSE</span>
+                    <h3>Receba novidades e uma aula gratuita.</h3>
+                    <p>Cadastre-se para saber quando novas turmas e conteúdos forem liberados.</p>
+                </div>
+                <form id="interestForm" class="interest-form">
+                    <label class="sr-only" for="interestName">Seu nome</label>
+                    <input id="interestName" name="name" type="text" placeholder="Seu nome" required>
+                    <label class="sr-only" for="interestEmail">Seu melhor e-mail</label>
+                    <input id="interestEmail" name="email" type="email" placeholder="Seu melhor e-mail" required>
+                    <button class="btn btn-primary" type="submit">Quero participar</button>
+                    <p id="interestMessage" class="form-feedback" aria-live="polite"></p>
+                </form>
+            </div>
         </section>
 
 
@@ -784,11 +813,11 @@
 
                 <div class="contact-grid">
 
-                    <div class="contact-card">
+                    <a class="contact-card" href="mailto:contato@potenciatraining.com">
 
                         <div class="contact-icon">
                             📧
-                        </div>
+                        </a>
 
                         <h3>
                             E-mail
@@ -798,10 +827,10 @@
                             contato@potenciatraining.com
                         </p>
 
-                    </div>
+                    </a>
 
 
-                    <div class="contact-card">
+                    <a class="contact-card" href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer">
 
                         <div class="contact-icon">
                             📱
@@ -815,10 +844,10 @@
                             (00) 00000-0000
                         </p>
 
-                    </div>
+                    </a>
 
 
-                    <div class="contact-card">
+                    <a class="contact-card" href="https://instagram.com/potenciatraining" target="_blank" rel="noopener noreferrer">
 
                         <div class="contact-icon">
                             📸
@@ -832,7 +861,7 @@
                             @potenciatraining
                         </p>
 
-                    </div>
+                    </a>
 
                 </div>
 
@@ -1031,6 +1060,10 @@
             <p id="contentDescription">
                 Descrição do conteúdo.
             </p>
+            <div class="video-frame" id="videoFrame" hidden>
+                <iframe id="contentVideo" title="Apresentação em vídeo" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <ul class="content-points" id="contentPoints"></ul>
 
         </div>
 
