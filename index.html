@@ -77,7 +77,7 @@
          CONTEÚDO PRINCIPAL
     ========================== -->
 
-    <main>
+    <main id="landingPage">
 
         <!-- =========================
              HERO
@@ -847,6 +847,90 @@
 
     </main>
 
+    <!-- =========================
+         ÁREA DO ALUNO
+    ========================== -->
+    <main class="student-area" id="studentArea" hidden aria-live="polite">
+        <section class="student-hero">
+            <div class="container student-hero-content">
+                <div>
+                    <span class="hero-tag">ÁREA DO ALUNO</span>
+                    <h1>Olá, <span id="studentFirstName">Aluno</span>.</h1>
+                    <p>Seu plano de evolução começa aqui. Escolha uma aula, treine com intenção e acompanhe cada passo da sua jornada.</p>
+                    <button class="btn btn-primary" type="button" data-student-lesson="fundamentos">Continuar aprendendo</button>
+                </div>
+                <div class="student-progress-card">
+                    <span>SEU PROGRESSO</span>
+                    <strong id="progressCount">0 de 6 aulas</strong>
+                    <div class="progress-track" aria-label="Progresso do curso"><span id="progressBar"></span></div>
+                    <p id="progressText">Comece pela primeira aula para construir uma base sólida.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="student-lessons" aria-labelledby="studentLessonsTitle">
+            <div class="container">
+                <div class="student-section-heading">
+                    <div>
+                        <span class="section-tag">TRILHA DE FORMAÇÃO</span>
+                        <h2 id="studentLessonsTitle">Treine com <strong>direção.</strong></h2>
+                    </div>
+                    <p>Uma sequência prática para entender treino de força, montar sua rotina e evoluir com consistência.</p>
+                </div>
+
+                <div class="lesson-grid">
+                    <article class="lesson-card" data-lesson-card="fundamentos">
+                        <span class="lesson-number">01</span><span class="lesson-status">COMECE AQUI</span>
+                        <h3>Fundamentos do treino</h3>
+                        <p>Frequência, execução, volume e descanso para começar com segurança.</p>
+                        <button type="button" class="lesson-action" data-student-lesson="fundamentos">Ver aula <span>→</span></button>
+                    </article>
+                    <article class="lesson-card" data-lesson-card="rotina">
+                        <span class="lesson-number">02</span><span class="lesson-status">ROTINA</span>
+                        <h3>Organização semanal</h3>
+                        <p>Como encaixar seus treinos na agenda sem abrir mão da recuperação.</p>
+                        <button type="button" class="lesson-action" data-student-lesson="rotina">Ver aula <span>→</span></button>
+                    </article>
+                    <article class="lesson-card" data-lesson-card="execucao">
+                        <span class="lesson-number">03</span><span class="lesson-status">TÉCNICA</span>
+                        <h3>Execução e controle</h3>
+                        <p>Use amplitude, postura e ritmo para tornar cada repetição mais eficiente.</p>
+                        <button type="button" class="lesson-action" data-student-lesson="execucao">Ver aula <span>→</span></button>
+                    </article>
+                    <article class="lesson-card" data-lesson-card="progressao">
+                        <span class="lesson-number">04</span><span class="lesson-status">EVOLUÇÃO</span>
+                        <h3>Progressão inteligente</h3>
+                        <p>Saiba quando aumentar carga, repetições ou séries de forma gradual.</p>
+                        <button type="button" class="lesson-action" data-student-lesson="progressao">Ver aula <span>→</span></button>
+                    </article>
+                    <article class="lesson-card" data-lesson-card="mobilidade">
+                        <span class="lesson-number">05</span><span class="lesson-status">PREPARAÇÃO</span>
+                        <h3>Mobilidade para treinar</h3>
+                        <p>Prepare o corpo para os movimentos que você quer executar melhor.</p>
+                        <button type="button" class="lesson-action" data-student-lesson="mobilidade">Ver aula <span>→</span></button>
+                    </article>
+                    <article class="lesson-card" data-lesson-card="recuperacao">
+                        <span class="lesson-number">06</span><span class="lesson-status">CONSISTÊNCIA</span>
+                        <h3>Recuperação e constância</h3>
+                        <p>Estratégias simples para sustentar o treino e respeitar seus limites.</p>
+                        <button type="button" class="lesson-action" data-student-lesson="recuperacao">Ver aula <span>→</span></button>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="student-tips">
+            <div class="container student-tips-content">
+                <div>
+                    <span class="section-tag">LEMBRETE DA SEMANA</span>
+                    <h2>Qualidade antes de <strong>quantidade.</strong></h2>
+                    <p>Registre como você se sente, mantenha a técnica e ajuste o plano com calma. Resultado duradouro vem de treino bem-feito.</p>
+                </div>
+                <button class="btn btn-secondary" type="button" id="dashboardLogout">Sair da conta</button>
+            </div>
+        </section>
+    </main>
+
 
     <!-- =========================
          RODAPÉ
@@ -1026,7 +1110,7 @@
                 ×
             </button>
 
-            <span class="section-tag">
+            <span class="section-tag" id="contentTag">
                 PRÉVIA
             </span>
 
@@ -1041,6 +1125,7 @@
                 <iframe id="contentVideo" title="Apresentação em vídeo" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
             <ul class="content-points" id="contentPoints"></ul>
+            <button class="btn btn-primary" id="completeLesson" type="button" hidden>Marcar como concluída</button>
 
         </div>
 

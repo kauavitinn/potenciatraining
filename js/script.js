@@ -10,6 +10,16 @@ const contentDescription = document.getElementById("contentDescription");
 const contentPoints = document.getElementById("contentPoints");
 const videoFrame = document.getElementById("videoFrame");
 const contentVideo = document.getElementById("contentVideo");
+const contentTag = document.getElementById("contentTag");
+const completeLesson = document.getElementById("completeLesson");
+const landingPage = document.getElementById("landingPage");
+const studentArea = document.getElementById("studentArea");
+const studentFirstName = document.getElementById("studentFirstName");
+const progressCount = document.getElementById("progressCount");
+const progressBar = document.getElementById("progressBar");
+const progressText = document.getElementById("progressText");
+const dashboardLogout = document.getElementById("dashboardLogout");
+let activeStudentLesson = null;
 
 const presentations = {
     musculacao: {
@@ -50,9 +60,24 @@ const lessons = {
         points: ["Divisão semanal", "Consistência", "Recuperação"]
     },
     progressao: {
-        title: "Aula 03 — Progressão",
+        title: "Aula 04 — Progressão",
         description: "Entenda como aumentar o desafio gradualmente sem perder qualidade de movimento.",
         points: ["Progressão de carga", "Registro do treino", "Quando ajustar o plano"]
+    },
+    execucao: {
+        title: "Aula 03 — Execução e controle",
+        description: "A técnica é a base de um treino eficiente. Aprenda a usar postura, amplitude e controle para repetir movimentos com qualidade.",
+        points: ["Posição inicial estável", "Amplitude adequada ao movimento", "Ritmo controlado em cada repetição"]
+    },
+    mobilidade: {
+        title: "Aula 05 — Mobilidade para treinar",
+        description: "Mobilidade é preparação para o movimento. Descubra como incluir movimentos simples antes do treino de acordo com sua necessidade.",
+        points: ["Aquecimento específico", "Mobilidade de quadril e ombros", "Preparação sem excessos"]
+    },
+    recuperacao: {
+        title: "Aula 06 — Recuperação e constância",
+        description: "Evoluir também envolve respeitar o descanso. Organize sua semana para treinar com regularidade e ajustar o ritmo quando preciso.",
+        points: ["Sinais de fadiga", "Sono e rotina", "Consistência acima da perfeição"]
     }
 };
 
@@ -86,6 +111,9 @@ function showPresentation(key) {
     contentTitle.textContent = item.title;
     contentDescription.textContent = item.description;
     renderPoints(item.points);
+    contentTag.textContent = "PRÉVIA";
+    completeLesson.hidden = true;
+    activeStudentLesson = null;
     contentVideo.src = item.video;
     videoFrame.hidden = false;
     openModal(contentModal);
@@ -104,11 +132,20 @@ document.querySelectorAll(".nav a").forEach(link => {
 });
 
 openLogin.addEventListener("click", () => {
+    if (getCurrentUser()) {
+        enterStudentArea();
+        return;
+    }
     renderAuthState();
     openModal(loginModal);
 });
 closeLogin.addEventListener("click", () => closeModal(loginModal));
 closeContent.addEventListener("click", () => closeModal(contentModal));
+completeLesson.addEventListener("click", completeActiveLesson);
+
+document.querySelectorAll("[data-student-lesson]").forEach(button => {
+    button.addEventListener("click", () => showStudentLesson(button.dataset.studentLesson));
+});
 
 document.querySelectorAll(".link-button").forEach(button => {
     button.addEventListener("click", () => showPresentation(button.dataset.content));
@@ -125,6 +162,9 @@ document.querySelectorAll(".preview-button").forEach(button => {
         contentTitle.textContent = lesson.title;
         contentDescription.textContent = lesson.description;
         renderPoints(lesson.points);
+        contentTag.textContent = "PRÉVIA";
+        completeLesson.hidden = true;
+        activeStudentLesson = null;
         stopVideo();
         openModal(contentModal);
     });
@@ -153,6 +193,7 @@ const accountAvatar = document.getElementById("accountAvatar");
 const logoutButton = document.getElementById("logoutButton");
 const AUTH_USERS_KEY = "potenciaUsers";
 const AUTH_SESSION_KEY = "potenciaSession";
+const STUDENT_PROGRESS_KEY = "potenciaLessonProgress";
 
 function getUsers() {
     try {
@@ -160,6 +201,88 @@ function getUsers() {
     } catch {
         return [];
     }
+}
+
+function getCurrentUser() {
+    const sessionId = localStorage.getItem(AUTH_SESSION_KEY);
+    return getUsers().find(item => item.id === sessionId);
+}
+
+function getCompletedLessons() {
+    const user = getCurrentUser();
+    if (!user) return [];
+    try {
+        const progress = JSON.parse(localStorage.getItem(STUDENT_PROGRESS_KEY) || "{}");
+        return Array.isArray(progress[user.id]) ? progress[user.id] : [];
+    } catch {
+        return [];
+    }
+}
+
+function renderStudentProgress() {
+    const completed = getCompletedLessons();
+    const total = Object.keys(lessons).length;
+    const percentage = total ? (completed.length / total) * 100 : 0;
+    progressCount.textContent = `${completed.length} de ${total} aulas`;
+    progressBar.style.width = `${percentage}%`;
+    progressText.textContent = completed.length === total
+        ? "Trilha concluída. Continue revisando e aplicando o que aprendeu."
+        : completed.length
+            ? "Ótimo ritmo. Escolha a próxima aula e mantenha a consistência."
+            : "Comece pela primeira aula para construir uma base sólida.";
+    document.querySelectorAll("[data-lesson-card]").forEach(card => {
+        card.classList.toggle("is-complete", completed.includes(card.dataset.lessonCard));
+    });
+}
+
+function enterStudentArea() {
+    const user = getCurrentUser();
+    if (!user) {
+        renderAuthState();
+        openModal(loginModal);
+        return;
+    }
+    studentFirstName.textContent = user.name.trim().split(/\s+/)[0] || "Aluno";
+    landingPage.hidden = true;
+    studentArea.hidden = false;
+    nav.classList.remove("active");
+    menuMobile.setAttribute("aria-expanded", "false");
+    closeModal(loginModal);
+    renderStudentProgress();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function showStudentLesson(key) {
+    const lesson = lessons[key];
+    if (!lesson || !getCurrentUser()) return;
+    activeStudentLesson = key;
+    contentTag.textContent = "AULA DA TRILHA";
+    contentTitle.textContent = lesson.title;
+    contentDescription.textContent = lesson.description;
+    renderPoints(lesson.points);
+    stopVideo();
+    completeLesson.textContent = getCompletedLessons().includes(key) ? "Aula concluída ✓" : "Marcar como concluída";
+    completeLesson.hidden = false;
+    openModal(contentModal);
+}
+
+function completeActiveLesson() {
+    const user = getCurrentUser();
+    if (!user || !activeStudentLesson) return;
+    let progress;
+    try {
+        progress = JSON.parse(localStorage.getItem(STUDENT_PROGRESS_KEY) || "{}");
+    } catch {
+        progress = {};
+    }
+    const completed = Array.isArray(progress[user.id]) ? progress[user.id] : [];
+    if (!completed.includes(activeStudentLesson)) {
+        completed.push(activeStudentLesson);
+        progress[user.id] = completed;
+        localStorage.setItem(STUDENT_PROGRESS_KEY, JSON.stringify(progress));
+    }
+    completeLesson.textContent = "Aula concluída ✓";
+    renderStudentProgress();
 }
 
 async function hashPassword(password, salt) {
@@ -196,8 +319,7 @@ function setAuthMode(mode) {
 }
 
 function renderAuthState() {
-    const sessionId = localStorage.getItem(AUTH_SESSION_KEY);
-    const user = getUsers().find(item => item.id === sessionId);
+    const user = getCurrentUser();
     if (!user) {
         openLogin.textContent = "Entrar";
         setAuthMode("login");
@@ -260,6 +382,7 @@ registerForm.addEventListener("submit", async event => {
     localStorage.setItem(AUTH_SESSION_KEY, user.id);
     form.reset();
     renderAuthState();
+    enterStudentArea();
 });
 
 loginForm.addEventListener("submit", async event => {
@@ -282,14 +405,22 @@ loginForm.addEventListener("submit", async event => {
     localStorage.setItem(AUTH_SESSION_KEY, user.id);
     form.reset();
     renderAuthState();
+    enterStudentArea();
 });
 
-logoutButton.addEventListener("click", () => {
+function logout() {
     localStorage.removeItem(AUTH_SESSION_KEY);
+    studentArea.hidden = true;
+    landingPage.hidden = false;
+    window.scrollTo({ top: 0, behavior: "smooth" });
     renderAuthState();
-});
+}
+
+logoutButton.addEventListener("click", logout);
+dashboardLogout.addEventListener("click", logout);
 
 renderAuthState();
+if (getCurrentUser()) enterStudentArea();
 
 document.getElementById("buyCourse").addEventListener("click", () => {
     document.getElementById("interestForm").scrollIntoView({ behavior: "smooth", block: "center" });

@@ -2168,3 +2168,268 @@ body.nav-moving::before {
 .account-panel .btn {
     width: 100%;
 }
+
+/* ÁREA DO ALUNO */
+.student-area {
+    min-height: 100vh;
+    background: var(--bg);
+}
+
+.student-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 112px 0 80px;
+    background: linear-gradient(90deg, rgba(4, 7, 5, 0.94) 0%, rgba(4, 7, 5, 0.72) 53%, rgba(4, 7, 5, 0.32) 100%), url('../img/hero-background-v2.png') center / cover;
+}
+
+.student-hero::after {
+    content: "";
+    position: absolute;
+    right: -110px;
+    bottom: -180px;
+    width: 480px;
+    height: 480px;
+    border: 1px solid rgba(200, 255, 57, 0.22);
+    border-radius: 50%;
+    box-shadow: 0 0 0 55px rgba(200, 255, 57, 0.04), 0 0 0 110px rgba(200, 255, 57, 0.025);
+}
+
+.student-hero-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+    gap: 64px;
+    align-items: end;
+}
+
+.student-hero h1,
+.student-section-heading h2,
+.student-tips h2 {
+    margin: 15px 0;
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(45px, 6vw, 76px);
+    line-height: 0.95;
+    text-transform: uppercase;
+}
+
+.student-hero h1 span,
+.student-section-heading strong,
+.student-tips strong {
+    color: var(--accent);
+}
+
+.student-hero > .container > div > p {
+    max-width: 610px;
+    margin-bottom: 28px;
+    color: #d6ddd7;
+}
+
+.student-progress-card {
+    padding: 30px;
+    border: 1px solid rgba(200, 255, 57, 0.27);
+    border-radius: 22px;
+    background: rgba(12, 16, 13, 0.9);
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.3);
+}
+
+.student-progress-card > span,
+.lesson-status {
+    display: block;
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+}
+
+.student-progress-card strong {
+    display: block;
+    margin: 8px 0 15px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 32px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.student-progress-card p {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.progress-track {
+    height: 9px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.progress-track span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--accent);
+    transition: width 0.35s ease;
+}
+
+.student-lessons {
+    padding: 100px 0;
+    background: var(--bg-secondary);
+}
+
+.student-section-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 36px;
+    align-items: end;
+    margin-bottom: 42px;
+}
+
+.student-section-heading h2,
+.student-tips h2 {
+    margin-bottom: 0;
+    font-size: clamp(38px, 5vw, 62px);
+}
+
+.student-section-heading > p {
+    max-width: 370px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.lesson-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.lesson-card {
+    min-height: 262px;
+    display: flex;
+    flex-direction: column;
+    padding: 26px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: #111612;
+    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.lesson-card:hover {
+    border-color: rgba(200, 255, 57, 0.5);
+    transform: translateY(-5px);
+    background: #161d17;
+}
+
+.lesson-card.is-complete {
+    border-color: rgba(200, 255, 57, 0.45);
+}
+
+.lesson-card.is-complete .lesson-status::after {
+    content: " · CONCLUÍDA";
+}
+
+.lesson-number {
+    margin-bottom: 18px;
+    color: rgba(200, 255, 57, 0.25);
+    font-family: 'Oswald', sans-serif;
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 0.75;
+}
+
+.lesson-card h3 {
+    margin: 12px 0 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.lesson-card p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.lesson-action {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+    padding: 18px 0 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+    background: transparent;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    text-align: left;
+}
+
+.lesson-action span {
+    color: var(--accent);
+    font-size: 19px;
+    line-height: 0.8;
+}
+
+.student-tips {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #111812, #090b0a);
+}
+
+.student-tips-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+}
+
+.student-tips p {
+    max-width: 680px;
+    margin-top: 18px;
+    color: var(--muted);
+}
+
+#dashboardLogout {
+    flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+    .student-hero-content,
+    .lesson-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .student-hero-content > :first-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 650px) {
+    .student-hero {
+        padding: 84px 0 60px;
+        background-position: 64% center;
+    }
+
+    .student-hero-content,
+    .lesson-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .student-section-heading,
+    .student-tips-content {
+        display: grid;
+        gap: 20px;
+    }
+
+    .student-lessons,
+    .student-tips {
+        padding: 70px 0;
+    }
+
+    #dashboardLogout {
+        width: 100%;
+    }
+}
