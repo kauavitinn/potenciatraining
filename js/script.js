@@ -3,6 +3,7 @@ const nav = document.querySelector(".nav");
 const loginModal = document.getElementById("loginModal");
 const contentModal = document.getElementById("contentModal");
 const openLogin = document.getElementById("openLogin");
+const openLoginMobile = document.getElementById("openLoginMobile");
 const closeLogin = document.getElementById("closeLogin");
 const closeContent = document.getElementById("closeContent");
 const contentTitle = document.getElementById("contentTitle");
@@ -131,14 +132,17 @@ document.querySelectorAll(".nav a").forEach(link => {
     });
 });
 
-openLogin.addEventListener("click", () => {
+function openStudentAccess() {
     if (getCurrentUser()) {
         enterStudentArea();
         return;
     }
     renderAuthState();
     openModal(loginModal);
-});
+}
+
+openLogin.addEventListener("click", openStudentAccess);
+openLoginMobile.addEventListener("click", openStudentAccess);
 closeLogin.addEventListener("click", () => closeModal(loginModal));
 closeContent.addEventListener("click", () => closeModal(contentModal));
 completeLesson.addEventListener("click", completeActiveLesson);
@@ -322,6 +326,7 @@ function renderAuthState() {
     const user = getCurrentUser();
     if (!user) {
         openLogin.textContent = "Entrar";
+        openLoginMobile.textContent = "Entrar na área do aluno";
         setAuthMode("login");
         return;
     }
@@ -335,6 +340,7 @@ function renderAuthState() {
     accountEmail.textContent = user.email;
     accountAvatar.textContent = user.name.trim().charAt(0).toUpperCase();
     openLogin.textContent = "Minha conta";
+    openLoginMobile.textContent = "Minhas aulas";
 }
 
 document.querySelectorAll("[data-auth-mode]").forEach(button => {
