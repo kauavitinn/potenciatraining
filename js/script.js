@@ -195,21 +195,19 @@ const accountName = document.getElementById("accountName");
 const accountEmail = document.getElementById("accountEmail");
 const accountAvatar = document.getElementById("accountAvatar");
 const logoutButton = document.getElementById("logoutButton");
-const AUTH_USERS_KEY = "potenciaUsers";
-const AUTH_SESSION_KEY = "potenciaSession";
 const STUDENT_PROGRESS_KEY = "potenciaLessonProgress";
-
-function getUsers() {
-    try {
-        return JSON.parse(localStorage.getItem(AUTH_USERS_KEY) || "[]");
-    } catch {
-        return [];
-    }
-}
+const supabaseClient = window.supabase.createClient(
+    "https://qskikljnenmozeanygtw.supabase.co",
+    "sb_publishable_5ymf4X_2eJY0lL2qItjEgw_bNoyWEh-"
+);
+let currentUser = null;
 
 function getCurrentUser() {
-    const sessionId = localStorage.getItem(AUTH_SESSION_KEY);
-    return getUsers().find(item => item.id === sessionId);
+    return currentUser;
+}
+
+function getUserName(user) {
+    return user?.user_metadata?.name || user?.email?.split("@")[0] || "Aluno";
 }
 
 function getCompletedLessons() {
@@ -246,7 +244,7 @@ function enterStudentArea() {
         openModal(loginModal);
         return;
     }
-    studentFirstName.textContent = user.name.trim().split(/\s+/)[0] || "Aluno";
+    studentFirstName.textContent = getUserName(user).trim().split(/\s+/)[0] || "Aluno";
     landingPage.hidden = true;
     studentArea.hidden = false;
     nav.classList.remove("active");
@@ -287,12 +285,6 @@ function completeActiveLesson() {
     }
     completeLesson.textContent = "Aula concluída ✓";
     renderStudentProgress();
-}
-
-async function hashPassword(password, salt) {
-    const bytes = new TextEncoder().encode(`${salt}:${password}`);
-    const digest = await crypto.subtle.digest("SHA-256", bytes);
-    return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
 }
 
 function setAuthMessage(element, text, type) {
@@ -336,9 +328,9 @@ function renderAuthState() {
     accountPanel.hidden = false;
     authHeading.textContent = "Sua conta";
     authIntro.textContent = "Você está conectado à Potência Training.";
-    accountName.textContent = user.name;
+    accountName.textContent = getUserName(user);
     accountEmail.textContent = user.email;
-    accountAvatar.textContent = user.name.trim().charAt(0).toUpperCase();
+    accountAvatar.textContent = getUserName(user).trim().charAt(0).toUpperCase();
     openLogin.textContent = "Minhas aulas";
     openLoginMobile.textContent = "Minhas aulas";
 }
@@ -368,25 +360,26 @@ registerForm.addEventListener("submit", async event => {
         return;
     }
 
-    const users = getUsers();
-    if (users.some(user => user.email === email)) {
-        setAuthMessage(registerMessage, "Já existe uma conta com este e-mail.", "error");
+    const { data, error } = await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+            data: { name },
+            emailRedirectTo: window.location.origin
+        }
+    });
+
+    if (error) {
+        setAuthMessage(registerMessage, error.message, "error");
         return;
     }
 
-    const salt = crypto.randomUUID();
-    const user = {
-        id: crypto.randomUUID(),
-        name,
-        email,
-        salt,
-        passwordHash: await hashPassword(password, salt),
-        createdAt: new Date().toISOString()
-    };
-    users.push(user);
-    localStorage.setItem(AUTH_USERS_KEY, JSON.stringify(users));
-    localStorage.setItem(AUTH_SESSION_KEY, user.id);
     form.reset();
+    if (!data.session) {
+        setAuthMessage(registerMessage, "Confira seu e-mail para confirmar a conta antes de entrar.", "success");
+        return;
+    }
+    currentUser = data.user;
     renderAuthState();
     enterStudentArea();
 });
@@ -395,27 +388,24 @@ loginForm.addEventListener("submit", async event => {
     event.preventDefault();
     const form = event.currentTarget;
     const email = form.elements.email.value.trim().toLowerCase();
-    const user = getUsers().find(item => item.email === email);
-
-    if (!user) {
-        setAuthMessage(loginMessage, "Conta não encontrada. Crie seu cadastro primeiro.", "error");
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password: form.elements.password.value
+    });
+    if (error) {
+        setAuthMessage(loginMessage, "E-mail ou senha inválidos. Se você já tinha uma conta local, crie-a novamente nesta versão.", "error");
         return;
     }
 
-    const passwordHash = await hashPassword(form.elements.password.value, user.salt);
-    if (passwordHash !== user.passwordHash) {
-        setAuthMessage(loginMessage, "Senha incorreta.", "error");
-        return;
-    }
-
-    localStorage.setItem(AUTH_SESSION_KEY, user.id);
+    currentUser = data.user;
     form.reset();
     renderAuthState();
     enterStudentArea();
 });
 
-function logout() {
-    localStorage.removeItem(AUTH_SESSION_KEY);
+async function logout() {
+    await supabaseClient.auth.signOut();
+    currentUser = null;
     studentArea.hidden = true;
     landingPage.hidden = false;
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -425,8 +415,18 @@ function logout() {
 logoutButton.addEventListener("click", logout);
 dashboardLogout.addEventListener("click", logout);
 
-renderAuthState();
-if (getCurrentUser()) enterStudentArea();
+async function initializeAuth() {
+    const { data } = await supabaseClient.auth.getUser();
+    currentUser = data.user;
+    renderAuthState();
+    if (currentUser) enterStudentArea();
+}
+
+supabaseClient.auth.onAuthStateChange((_event, session) => {
+    currentUser = session?.user || null;
+});
+
+initializeAuth();
 
 document.getElementById("buyCourse").addEventListener("click", () => {
     document.getElementById("interestForm").scrollIntoView({ behavior: "smooth", block: "center" });
