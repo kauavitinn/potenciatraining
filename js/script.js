@@ -339,7 +339,7 @@ function renderAuthState() {
     accountName.textContent = user.name;
     accountEmail.textContent = user.email;
     accountAvatar.textContent = user.name.trim().charAt(0).toUpperCase();
-    openLogin.textContent = "Minha conta";
+    openLogin.textContent = "Minhas aulas";
     openLoginMobile.textContent = "Minhas aulas";
 }
 
