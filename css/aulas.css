@@ -57,6 +57,7 @@ li::marker { color: var(--lime); }
 .completion { margin-top: 24px; text-align: center; border-color: #58712d; }
 .complete-button { display: block; width: min(100%, 320px); margin: 20px auto 8px; padding: 13px 18px; border: 1px solid var(--lime); border-radius: 999px; background: var(--lime); color: var(--black); font: 800 1rem Arial, sans-serif; cursor: pointer; }
 .complete-button:hover { background: #d8ff72; transform: translateY(-1px); }
+.complete-button:disabled { border-color: #3c453d; background: #1a201b; color: #7d887f; cursor: not-allowed; transform: none; }
 .complete-button.is-complete { border-color: #537e1f; background: #1b3012; color: var(--lime); }
 .completion-message { min-height: 25px; color: var(--muted); font-size: .92rem; }
 .completion a { display: inline-block; margin-top: 8px; padding: 10px 16px; border: 1px solid var(--lime); border-radius: 999px; color: var(--lime); font-weight: 700; text-decoration: none; }

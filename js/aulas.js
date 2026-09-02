@@ -12,7 +12,18 @@ const LESSONS = {
       ['Como transformar intenção em plano', 'Comece por um objetivo claro e observável: por exemplo, dominar o agachamento com boa amplitude, completar duas sessões semanais ou aumentar repetições mantendo a mesma carga. Depois selecione poucos movimentos básicos e uma dose que caiba na agenda. Registre exercício, carga, repetições e percepção de esforço. Esse registro separa evolução real de impressão momentânea. A sessão inicial não precisa ser exaustiva; ela precisa ser repetível, compreensível e segura.']
     ],
     deepDive: [['Carga não é só quilogramas', 'A carga externa é apenas uma das formas de tornar uma sessão mais exigente. Uma repetição mais lenta, uma pausa em uma posição estável, uma amplitude que você consegue controlar ou menos ajuda do corpo também aumentam a demanda. Isso é útil para iniciantes porque permite evoluir sem perseguir números cedo demais. Compare sessões semelhantes e pergunte: a técnica se manteve? O esforço ficou adequado? A recuperação permitiu treinar novamente?'], ['Exemplo de decisão bem feita', 'Se você executou três séries de agachamento com estabilidade, mas perdeu o controle na quarta, a informação não é “preciso dobrar a carga”. Talvez a melhor decisão seja manter a dose, praticar o padrão e registrar a resposta. Com base em semanas, e não em um dia isolado, fica mais fácil decidir entre repetir, progredir ou reduzir a exigência.']],
-    quiz: [{q: 'Qual é um exemplo de sobrecarga progressiva?', a: ['Aumentar todas as variáveis ao mesmo tempo', 'Melhorar uma repetição mantendo a técnica', 'Treinar até perder a postura'], c: 1}, {q: 'Qual deve ser a prioridade na primeira sessão?', a: ['Exaustão máxima', 'Rotina de outra pessoa', 'Movimento compreensível e repetível'], c: 2}],
+    quiz: [
+      {q: 'Qual é um exemplo de sobrecarga progressiva?', a: ['Aumentar todas as variáveis ao mesmo tempo', 'Melhorar uma repetição mantendo a técnica', 'Treinar até perder a postura'], c: 1},
+      {q: 'Qual deve ser a prioridade na primeira sessão?', a: ['Exaustão máxima', 'Rotina de outra pessoa', 'Movimento compreensível e repetível'], c: 2},
+      {q: 'O que a especificidade pede do treino?', a: ['Que se relacione à capacidade desejada', 'Que seja igual para todos', 'Que mude diariamente'], c: 0},
+      {q: 'Qual dado ajuda a comparar sessões?', a: ['Carga, repetições e percepção de esforço', 'Apenas a música', 'Somente o tempo no espelho'], c: 0},
+      {q: 'A individualidade considera principalmente:', a: ['Experiência, rotina e limitações', 'Somente idade', 'A carga da outra pessoa'], c: 0},
+      {q: 'Qual atitude favorece adaptação?', a: ['Treinar e recuperar de forma planejada', 'Ignorar o descanso', 'Mudar tudo em cada treino'], c: 0},
+      {q: 'Uma série inicial leve serve para:', a: ['Ajustar equipamento e trajetória', 'Substituir o treino inteiro', 'Testar o limite máximo'], c: 0},
+      {q: 'Qual pode ser uma forma de progredir?', a: ['Executar com mais controle', 'Perder postura', 'Eliminar o registro'], c: 0},
+      {q: 'Por que não copiar uma rotina sem contexto?', a: ['Objetivos e capacidades variam', 'Toda rotina é proibida', 'Pesos não importam'], c: 0},
+      {q: 'O que torna uma sessão inicial útil?', a: ['Ser repetível e compreensível', 'Ser a mais cansativa', 'Ter o maior número de exercícios'], c: 0}
+    ],
     demo: ['Leitura de uma sessão iniciante', 'Escolha um movimento para pernas, um empurrar, um puxar e um exercício de tronco.', 'Faça uma série leve de reconhecimento para ajustar banco, apoios e trajetória.', 'Anote o que foi realizado e só progrida quando o padrão estiver estável.'],
     mistakes: ['Aumentar peso antes de dominar a trajetória.', 'Mudar todos os exercícios e variáveis na mesma semana.', 'Tratar fadiga extrema como único sinal de um treino produtivo.'],
     challenge: 'Escreva uma meta de processo para os próximos 14 dias e escolha uma forma simples de registrá-la.'
@@ -30,7 +41,18 @@ const LESSONS = {
       ['Como usar a imagem da aula', 'No holograma, a área luminosa representa musculatura com maior participação no gesto, e não uma lista absoluta de músculos ativos. Na remada, comece com peito organizado e braços estendidos sem perder o controle do ombro. Ao puxar, conduza os cotovelos para trás e aproxime as escápulas sem jogar o tronco. A volta é parte da repetição: retornar com controle mantém a referência da trajetória e facilita perceber compensações.']
     ],
     deepDive: [['Padrão antes do músculo', 'Em vez de decorar longas listas, pergunte qual padrão o exercício realiza e quais articulações se movimentam. Uma puxada vertical e uma remada trabalham costas de formas distintas porque a direção da resistência e o caminho dos cotovelos mudam. Essa leitura ajuda a evitar rotinas com cinco exercícios quase iguais e nenhuma atenção a outro padrão importante.'], ['Estabilidade cria referência', 'O tronco e as escápulas não são “detalhes estéticos”: eles criam uma base para braços e pernas produzirem força. Em uma remada, estabilizar primeiro evita transformar o exercício em um balanço. Se para puxar o peso você precisa mudar muito a posição, use menos carga, mais apoio ou outra variação.']],
-    quiz: [{q: 'Na remada, o que deve guiar o movimento?', a: ['Balançar o tronco', 'Conduzir os cotovelos com tronco estável', 'Elevar os ombros'], c: 1}, {q: 'O que a área verde do holograma indica?', a: ['Ênfase muscular no gesto', 'Um diagnóstico médico', 'O único músculo ativo'], c: 0}],
+    quiz: [
+      {q: 'Na remada, o que deve guiar o movimento?', a: ['Balançar o tronco', 'Conduzir os cotovelos com tronco estável', 'Elevar os ombros'], c: 1},
+      {q: 'O que a área verde do holograma indica?', a: ['Ênfase muscular no gesto', 'Um diagnóstico médico', 'O único músculo ativo'], c: 0},
+      {q: 'Qual articulação participa do agachamento?', a: ['Quadril e joelho', 'Apenas punho', 'Apenas cotovelo'], c: 0},
+      {q: 'Peitoral, deltoide anterior e tríceps participam de:', a: ['Empurradas', 'Remadas', 'Apenas corrida'], c: 0},
+      {q: 'Dorsais e bíceps ganham ênfase em:', a: ['Puxadas e remadas', 'Empurradas horizontais', 'Alongamento passivo'], c: 0},
+      {q: 'Qual é um padrão de membros inferiores?', a: ['Dobrar o quadril', 'Piscar', 'Girar o pescoço'], c: 0},
+      {q: 'O que acontece na fase de retorno da remada?', a: ['Ela também deve ser controlada', 'A carga deve cair livremente', 'O tronco deve balançar'], c: 0},
+      {q: 'Por que estabilizar o tronco?', a: ['Para criar base ao movimento', 'Para diminuir a amplitude sempre', 'Para usar impulso'], c: 0},
+      {q: 'Máquina e peso livre devem ser escolhidos por:', a: ['Controle e possibilidade de progresso', 'Qual é mais famoso', 'Qual ocupa mais espaço'], c: 0},
+      {q: 'Músculos trabalham no exercício de forma:', a: ['Integrada, com ênfases diferentes', 'Sempre isolada', 'Sem participar das articulações'], c: 0}
+    ],
     demo: ['Análise de uma remada sentada', 'Ajuste o apoio para conseguir iniciar com braços longos e tronco estável.', 'Puxe o pegador aproximando os cotovelos do corpo, sem elevar os ombros.', 'Retorne devagar até sentir o alongamento controlado das costas.'],
     mistakes: ['Transformar a remada em balanço de tronco.', 'Encolher os ombros durante a puxada.', 'Escolher uma amplitude que obriga a perder a posição lombar.'],
     challenge: 'Em sua próxima sessão, classifique cada exercício por padrão: agachar, dobrar quadril, empurrar, puxar, carregar ou estabilizar.'
@@ -48,7 +70,18 @@ const LESSONS = {
       ['Dor não é sinônimo de esforço', 'Ardor muscular e fadiga são sensações comuns de uma série desafiadora, mas dor aguda, pontada, formigamento, tontura, falta de ar incomum ou perda súbita de controle são sinais para interromper. Reduza a exigência, ajuste a variação ou procure avaliação profissional conforme o caso. Treinar com qualidade não significa ignorar o corpo. Se uma técnica só se sustenta na primeira repetição, a carga, a amplitude ou a escolha do exercício precisam ser revistas.']
     ],
     deepDive: [['Checklist de preparação', 'Antes de iniciar, confira se o equipamento está travado, se o banco permite os apoios necessários e se o espaço ao redor está livre. Faça algumas repetições leves para reconhecer a trajetória. Só depois escolha a carga da série principal. Esse ritual reduz improvisos e torna cada sessão comparável à anterior.'], ['Qualidade de repetição', 'Considere uma repetição válida quando você mantém apoios, trajetória e ritmo planejados. Quando uma compensação aparece, ela pode indicar fadiga, carga excessiva, ajuste ruim ou amplitude inadequada. Encerrar uma série antes do colapso técnico preserva a qualidade do estímulo e fornece um dado mais útil para a próxima sessão.']],
-    quiz: [{q: 'O que vem antes da série principal?', a: ['Série de ensaio com baixa exigência', 'A maior carga possível', 'Impulso para aquecer'], c: 0}, {q: 'Qual sinal pede interrupção e avaliação?', a: ['Respiração organizada', 'Dor aguda ou tontura', 'Cansaço esperado'], c: 1}],
+    quiz: [
+      {q: 'O que vem antes da série principal?', a: ['Série de ensaio com baixa exigência', 'A maior carga possível', 'Impulso para aquecer'], c: 0},
+      {q: 'Qual sinal pede interrupção e avaliação?', a: ['Respiração organizada', 'Dor aguda ou tontura', 'Cansaço esperado'], c: 1},
+      {q: 'Qual é o primeiro passo de segurança?', a: ['Ajustar equipamento e apoios', 'Aumentar a carga', 'Pular o aquecimento'], c: 0},
+      {q: 'Uma amplitude útil é aquela que:', a: ['Permite controle e não causa dor aguda', 'É sempre a maior possível', 'Exige impulso'], c: 0},
+      {q: 'Qual fase merece controle?', a: ['Tanto a ida quanto o retorno', 'Somente a subida', 'Somente a última repetição'], c: 0},
+      {q: 'Em um supino, os pés devem ajudar a:', a: ['Criar apoios estáveis', 'Ficar sem contato com o chão', 'Empurrar o banco'], c: 0},
+      {q: 'Perda de trajetória geralmente indica:', a: ['Necessidade de ajuste', 'Que a série está perfeita', 'Que se deve acelerar'], c: 0},
+      {q: 'Qual sensação não deve ser ignorada?', a: ['Formigamento', 'Esforço esperado', 'Concentração'], c: 0},
+      {q: 'Punhos no supino devem ficar:', a: ['Alinhados e controlados', 'Dobrado ao máximo', 'Soltos'], c: 0},
+      {q: 'A boa técnica é uma trajetória:', a: ['Consistente e adequada à pessoa', 'Aleatória', 'Mais rápida a qualquer custo'], c: 0}
+    ],
     demo: ['Demonstração: supino com barra', 'Apoie pés e costas, ajuste a pegada e posicione a barra acima da linha dos ombros.', 'Desça de forma controlada, mantendo punhos alinhados e escápulas organizadas.', 'Empurre sem perder os apoios; termine a série antes que a trajetória se torne instável.'],
     mistakes: ['Retirar a barra sem conferir travas e altura dos suportes.', 'Deixar punhos dobrarem excessivamente sob a carga.', 'Usar um arco ou amplitude que causa desconforto em vez de estabilidade.'],
     challenge: 'Filme apenas para sua análise uma série leve de um movimento e observe apoios, ritmo e simetria; ajuste uma coisa por vez.'
@@ -66,7 +99,18 @@ const LESSONS = {
       ['Progressão sem pressa', 'Use a dupla progressão como exemplo prático: mantenha uma faixa de repetições e uma carga estável; ao alcançar o topo da faixa em todas as séries com boa técnica, faça um pequeno aumento de carga e retorne à base da faixa. Também é possível progredir com amplitude, pausa, estabilidade ou consistência semanal. Escolha apenas uma mudança por vez. Se a técnica, o sono ou as dores piorarem, o plano pede ajuste antes de exigir mais.']
     ],
     deepDive: [['Volume e recuperação caminham juntos', 'Adicionar séries pode elevar o estímulo, mas também aumenta a fadiga a administrar. Não existe uma quantidade universal: experiência, alimentação, sono, disponibilidade e seleção de exercícios alteram a resposta. O plano precisa produzir desafio suficiente sem impedir a próxima sessão produtiva. Registros simples de desempenho e recuperação ajudam a encontrar uma dose sustentável.'], ['Usando esforço percebido', 'Ao terminar uma série, pergunte quantas repetições boas ainda seriam possíveis. Não é necessário que a resposta seja exata; a finalidade é aprender a diferenciar uma série confortável, desafiadora e próxima do limite técnico. Com esse dado, é possível manter esforço consistente mesmo quando a carga absoluta muda entre máquinas e exercícios.']],
-    quiz: [{q: 'Na dupla progressão, quando a carga costuma aumentar?', a: ['Ao atingir o topo da faixa com boa técnica', 'Depois da primeira repetição', 'Sempre que houver dor muscular'], c: 0}, {q: 'Volume se refere principalmente a:', a: ['Quantidade de trabalho acumulada', 'Apenas peso da barra', 'Velocidade da música'], c: 0}],
+    quiz: [
+      {q: 'Na dupla progressão, quando a carga costuma aumentar?', a: ['Ao atingir o topo da faixa com boa técnica', 'Depois da primeira repetição', 'Sempre que houver dor muscular'], c: 0},
+      {q: 'Volume se refere principalmente a:', a: ['Quantidade de trabalho acumulada', 'Apenas peso da barra', 'Velocidade da música'], c: 0},
+      {q: 'Hipertrofia é:', a: ['Aumento do tamanho muscular ao longo do tempo', 'Uma única série pesada', 'Somente resistência cardiovascular'], c: 0},
+      {q: 'Força é a capacidade de:', a: ['Produzir força em uma tarefa', 'Evitar qualquer esforço', 'Treinar sem recuperação'], c: 0},
+      {q: 'Resistência muscular envolve:', a: ['Sustentar ou repetir esforço com qualidade', 'Usar apenas cargas máximas', 'Nunca repetir exercícios'], c: 0},
+      {q: 'O descanso entre séries influencia:', a: ['A qualidade da próxima tentativa', 'Somente a música', 'Nada no treino'], c: 0},
+      {q: 'Falhar em toda série é:', a: ['Desnecessário para progredir', 'Obrigatório', 'A única forma de treinar'], c: 0},
+      {q: 'Uma progressão segura muda:', a: ['Uma variável por vez', 'Tudo no mesmo dia', 'Apenas o nome do exercício'], c: 0},
+      {q: 'Esforço percebido ajuda a:', a: ['Diferenciar séries confortáveis e desafiadoras', 'Dispensar técnica', 'Eliminar descanso'], c: 0},
+      {q: 'Se sono e técnica pioram, o plano pede:', a: ['Ajuste antes de exigir mais', 'Mais carga imediatamente', 'Ignorar os sinais'], c: 0}
+    ],
     demo: ['Demonstração: progressão de repetições', 'Defina uma faixa, como 8 a 12 repetições, e uma carga que permita controle.', 'Registre quantas repetições boas ocorreram em cada série, sem transformar a última em compensação.', 'Quando todas as séries chegarem ao topo da faixa, faça aumento pequeno e recomece a progressão.'],
     mistakes: ['Confundir aumento de suor com progresso mensurável.', 'Ir à falha técnica em todos os exercícios e todas as semanas.', 'Mudar carga, exercícios, divisão e volume ao mesmo tempo.'],
     challenge: 'Escolha um exercício e acompanhe por quatro sessões: carga, repetições, descanso e qualidade da técnica.'
@@ -84,7 +128,18 @@ const LESSONS = {
       ['Plano A, Plano B e revisão', 'Crie uma versão principal e uma versão curta para dias corridos. O Plano B pode preservar dois ou três movimentos prioritários em vez de cancelar a semana inteira. Revise o plano após algumas semanas usando registros: houve evolução? A sessão cabe no horário? A técnica continua estável? Há recuperação adequada? Ajuste frequência, seleção, séries ou intervalos conforme a resposta. Planejamento não é rigidez; é usar informação para decidir melhor.']
     ],
     deepDive: [['Como escolher exercícios', 'Priorize movimentos que você compreende, consegue montar no ambiente disponível e repete com controle. Depois considere se o exercício atende a um padrão que falta na rotina. Trocar um movimento não apaga o trabalho anterior se a função é parecida; uma variação de empurrar pode substituir outra quando preserva objetivo, segurança e possibilidade de progresso.'], ['Sessões curtas ainda contam', 'Em uma semana apertada, proteja o essencial: um exercício de membros inferiores e uma empurrada ou puxada podem manter contato com o treino. A sessão curta não precisa compensar tudo o que ficou de fora. Ela mantém o hábito, oferece informação sobre sua resposta e evita a lógica de “tudo ou nada”.']],
-    quiz: [{q: 'O que deve definir a divisão semanal?', a: ['A rotina que você consegue manter', 'A tendência da internet', 'O maior número de exercícios'], c: 0}, {q: 'Qual é a função do Plano B?', a: ['Cancelar a semana', 'Preservar prioridades em pouco tempo', 'Aumentar todas as séries'], c: 1}],
+    quiz: [
+      {q: 'O que deve definir a divisão semanal?', a: ['A rotina que você consegue manter', 'A tendência da internet', 'O maior número de exercícios'], c: 0},
+      {q: 'Qual é a função do Plano B?', a: ['Cancelar a semana', 'Preservar prioridades em pouco tempo', 'Aumentar todas as séries'], c: 1},
+      {q: 'Para iniciantes, uma rotina de corpo inteiro pode ser:', a: ['Uma opção útil e prática', 'Sempre proibida', 'Igual a treinar uma vez por mês'], c: 0},
+      {q: 'Quais movimentos costumam receber prioridade?', a: ['Os que pedem mais atenção técnica', 'Os aleatórios', 'Somente acessórios'], c: 0},
+      {q: 'A escolha de exercícios deve considerar:', a: ['Controle e ambiente disponível', 'A moda do dia', 'A maior lista possível'], c: 0},
+      {q: 'Uma rotina completa deve cobrir:', a: ['Padrões de movimento ao longo da semana', 'Apenas braços', 'Apenas um exercício'], c: 0},
+      {q: 'Um plano deve ser revisado usando:', a: ['Registros e resposta ao treino', 'Somente comparação com outros', 'Uma sessão isolada'], c: 0},
+      {q: 'Sessões curtas em dias corridos:', a: ['Podem preservar o hábito e prioridades', 'Não contam', 'Exigem compensar tudo'], c: 0},
+      {q: 'Máquinas, cabos e halteres são:', a: ['Ferramentas escolhidas conforme a necessidade', 'Melhores em toda situação', 'Inúteis'], c: 0},
+      {q: 'Planejamento eficaz é:', a: ['Adaptável à vida real', 'Rígido a qualquer custo', 'Uma rotina sem revisão'], c: 0}
+    ],
     demo: ['Demonstração: sessão de corpo inteiro', 'Comece por um padrão de pernas, como agachar ou dobrar o quadril.', 'Inclua uma empurrada e uma puxada em versões que você consegue controlar.', 'Finalize com acessórios ou tronco somente se ainda houver tempo e qualidade para realizá-los.'],
     mistakes: ['Escolher a divisão pela moda, sem olhar a disponibilidade.', 'Duplicar muitos exercícios que fazem o mesmo papel.', 'Abandonar a rotina porque uma sessão não saiu exatamente como planejado.'],
     challenge: 'Monte uma semana realista em uma folha: dias, duração, padrões de movimento e plano curto para imprevistos.'
@@ -102,7 +157,18 @@ const LESSONS = {
       ['Quando ajustar o programa', 'Progrida quando desempenho e técnica mostram margem; mantenha quando o plano está funcionando; reduza ou reorganize quando há queda persistente de rendimento, técnica degradada ou recuperação insuficiente. Uma semana menos exigente pode ser uma escolha estratégica, não fracasso. Ao ajustar, altere uma variável de cada vez para saber o que produziu o efeito. Em caso de dor persistente ou sintomas fora do esperado, a prioridade é avaliação adequada, não insistir em um método.']
     ],
     deepDive: [['Intensificação com propósito', 'Superséries e drop sets ocupam um lugar específico: podem economizar tempo ou elevar o desafio de um músculo quando a técnica básica já está consolidada. Escolha exercícios estáveis, comece com pouca frequência e mantenha a possibilidade de parar a série ao perder controle. Não use método avançado para mascarar ausência de plano.'], ['Leitura de tendências', 'Observe o conjunto: desempenho, disposição, sono e qualidade de movimento durante semanas. Uma sessão abaixo do esperado pode acontecer por vários motivos e não exige mudança imediata. Por outro lado, queda persistente junto a recuperação ruim pede revisão. Fazer uma alteração de cada vez torna a causa mais clara e evita trocar de plano sem aprender com ele.']],
-    quiz: [{q: 'Métodos como drop set devem ser usados:', a: ['Como ferramenta pontual e planejada', 'Em todos os exercícios', 'Para ignorar a técnica'], c: 0}, {q: 'Para avaliar um programa, é melhor observar:', a: ['Tendências de várias sessões', 'Apenas um dia ruim', 'Somente suor'], c: 0}],
+    quiz: [
+      {q: 'Métodos como drop set devem ser usados:', a: ['Como ferramenta pontual e planejada', 'Em todos os exercícios', 'Para ignorar a técnica'], c: 0},
+      {q: 'Para avaliar um programa, é melhor observar:', a: ['Tendências de várias sessões', 'Apenas um dia ruim', 'Somente suor'], c: 0},
+      {q: 'Uma supersérie combina:', a: ['Dois exercícios com pouco intervalo', 'Uma semana sem treino', 'Apenas alongamentos'], c: 0},
+      {q: 'O rest-pause utiliza:', a: ['Pausas breves dentro da sequência', 'Nenhuma pausa na semana', 'Uma carga aleatória'], c: 0},
+      {q: 'O mínimo útil de registro inclui:', a: ['Exercício, carga, séries e repetições', 'Apenas foto do espelho', 'Somente horário'], c: 0},
+      {q: 'Queda persistente de rendimento pode pedir:', a: ['Reorganização do plano', 'Ignorar a recuperação', 'Mais métodos de uma vez'], c: 0},
+      {q: 'Semana menos exigente pode ser:', a: ['Uma estratégia de recuperação', 'Um fracasso obrigatório', 'Inútil'], c: 0},
+      {q: 'Para entender o efeito de um ajuste, o ideal é:', a: ['Alterar uma variável por vez', 'Mudar tudo', 'Não registrar nada'], c: 0},
+      {q: 'Técnicas avançadas exigem principalmente:', a: ['Técnica básica consolidada', 'Perda de controle', 'Fadiga em todos os exercícios'], c: 0},
+      {q: 'Em caso de dor persistente, a prioridade é:', a: ['Avaliação adequada', 'Insistir no método', 'Aumentar a carga'], c: 0}
+    ],
     demo: ['Demonstração: supersérie consciente', 'Escolha dois exercícios simples e que não prejudiquem a técnica um do outro.', 'Execute o primeiro, transite com organização para o segundo e mantenha o registro das duas partes.', 'Aumente o descanso ou interrompa a técnica se o padrão do movimento começar a se perder.'],
     mistakes: ['Usar drop sets e falha em quase todos os exercícios.', 'Comparar medidas feitas em horários e condições totalmente diferentes.', 'Trocar o programa antes de ter registros suficientes para avaliá-lo.'],
     challenge: 'Durante duas semanas, registre uma nota de 1 a 5 para recuperação e compare-a com seu desempenho nos exercícios principais.'
@@ -160,10 +226,19 @@ const completionMessage = document.querySelector('#completionMessage');
 const checkQuiz = document.querySelector('#checkQuiz');
 const quizResult = document.querySelector('#quizResult');
 let studentId = null;
+let quizPassed = false;
+
+document.querySelector('.quiz .eyebrow').textContent = 'AVALIAÇÃO FINAL · 10 QUESTÕES';
+document.querySelector('.quiz > p').textContent = 'Você precisa acertar as 10 questões para liberar a conclusão da aula.';
+checkQuiz.textContent = 'Corrigir avaliação';
+document.querySelector('.completion > p').textContent = 'Conclua a avaliação com 10 acertos para liberar este botão e registrar seu progresso.';
+completeButton.disabled = true;
+completionMessage.textContent = 'Avaliação pendente: acerte todas as questões para concluir.';
 
 function showCompleteState() {
   completeButton.textContent = '✓ Aula concluída';
   completeButton.classList.add('is-complete');
+  completeButton.disabled = true;
   completionMessage.textContent = 'Aula concluída e progresso atualizado na Área do Aluno.';
 }
 
@@ -199,6 +274,10 @@ async function connectProgress() {
 }
 
 completeButton.addEventListener('click', () => {
+  if (!quizPassed) {
+    completionMessage.textContent = 'A conclusão será liberada após 10 acertos na avaliação final.';
+    return;
+  }
   if (saveCompletion()) showCompleteState();
   else completionMessage.textContent = 'Entre na sua conta para registrar a conclusão.';
 });
@@ -218,17 +297,23 @@ checkQuiz.addEventListener('click', () => {
     } else fieldset.classList.add('is-wrong');
   });
   if (answered < lesson.quiz.length) {
+    quizPassed = false;
+    completeButton.disabled = true;
     quizResult.className = 'quiz-result is-pending';
     quizResult.innerHTML = `<strong>QUASE LÁ</strong><span>Responda às ${lesson.quiz.length} perguntas para liberar uma correção completa. Releia a aula com calma: o objetivo é aprender, não correr.</span>`;
     return;
   }
   if (correct === lesson.quiz.length) {
+    quizPassed = true;
+    completeButton.disabled = false;
     quizResult.className = 'quiz-result is-success';
-    quizResult.innerHTML = `<strong>DOMÍNIO CONFIRMADO · ${correct}/${lesson.quiz.length}</strong><span>Excelente leitura. Você identificou os pontos centrais desta aula; registre a conclusão e siga para o próximo passo da trilha.</span>`;
+    quizResult.innerHTML = `<strong>DOMÍNIO CONFIRMADO · ${correct}/${lesson.quiz.length}</strong><span>Excelente leitura. Você acertou toda a avaliação; o botão de conclusão foi liberado para registrar seu progresso e seguir na trilha.</span>`;
     return;
   }
+  quizPassed = false;
+  completeButton.disabled = true;
   quizResult.className = 'quiz-result is-review';
-  quizResult.innerHTML = `<strong>BOA TENTATIVA · ${correct}/${lesson.quiz.length}</strong><span>Você já consolidou parte do conteúdo. Os destaques em verde mostram os acertos; revise os pontos sinalizados e tente novamente quando quiser.</span>`;
+  quizResult.innerHTML = `<strong>REVISÃO NECESSÁRIA · ${correct}/${lesson.quiz.length}</strong><span>Você precisa acertar as 10 questões para liberar a conclusão. Os destaques em verde mostram seus acertos; revise os pontos sinalizados e tente novamente.</span>`;
 });
 
 connectProgress();
