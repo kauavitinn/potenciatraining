@@ -263,17 +263,8 @@ function enterStudentArea() {
 }
 
 function showStudentLesson(key) {
-    const lesson = lessons[key];
-    if (!lesson || !getCurrentUser()) return;
-    activeStudentLesson = key;
-    contentTag.textContent = "AULA DA TRILHA";
-    contentTitle.textContent = lesson.title;
-    contentDescription.textContent = lesson.description;
-    renderPoints(lesson.points);
-    stopVideo();
-    completeLesson.textContent = getCompletedLessons().includes(key) ? "Aula concluída ✓" : "Marcar como concluída";
-    completeLesson.hidden = false;
-    openModal(contentModal);
+    if (!lessons[key] || !getCurrentUser()) return;
+    window.location.href = `aulas/${key}.html`;
 }
 
 function completeActiveLesson() {
