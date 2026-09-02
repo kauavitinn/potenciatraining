@@ -2454,3 +2454,38 @@ body.nav-moving::before {
         display: none;
     }
 }
+
+/* EXCLUSÃO DE CONTA */
+.account-delete {
+    width: 100%;
+    margin-top: 12px;
+    padding: 10px;
+    border: 0;
+    background: transparent;
+    color: #ff8585;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.account-delete:hover {
+    color: #ffb0b0;
+    text-decoration: underline;
+}
+
+.student-account-actions {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.student-account-actions .dashboard-delete {
+    width: auto;
+    margin-top: 8px;
+}
+
+@media (max-width: 650px) {
+    .student-account-actions {
+        width: 100%;
+    }
+}

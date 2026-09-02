@@ -195,6 +195,8 @@ const accountName = document.getElementById("accountName");
 const accountEmail = document.getElementById("accountEmail");
 const accountAvatar = document.getElementById("accountAvatar");
 const logoutButton = document.getElementById("logoutButton");
+const deleteAccountButton = document.getElementById("deleteAccountButton");
+const dashboardDeleteAccount = document.getElementById("dashboardDeleteAccount");
 const STUDENT_PROGRESS_KEY = "potenciaLessonProgress";
 const supabaseClient = window.supabase.createClient(
     "https://qskikljnenmozeanygtw.supabase.co",
@@ -412,8 +414,47 @@ async function logout() {
     renderAuthState();
 }
 
+async function deleteAccount() {
+    const user = getCurrentUser();
+    if (!user) return;
+    const confirmed = window.confirm("Excluir sua conta permanentemente? Essa ação não pode ser desfeita.");
+    if (!confirmed) return;
+
+    const buttons = [deleteAccountButton, dashboardDeleteAccount];
+    buttons.forEach(button => {
+        button.disabled = true;
+        button.textContent = "Excluindo...";
+    });
+
+    const { error } = await supabaseClient.rpc("delete_own_account");
+    if (error) {
+        buttons.forEach(button => {
+            button.disabled = false;
+            button.textContent = "Excluir minha conta";
+        });
+        window.alert("Não foi possível excluir a conta. Tente novamente em alguns instantes.");
+        return;
+    }
+
+    try {
+        const progress = JSON.parse(localStorage.getItem(STUDENT_PROGRESS_KEY) || "{}");
+        delete progress[user.id];
+        localStorage.setItem(STUDENT_PROGRESS_KEY, JSON.stringify(progress));
+    } catch {
+        localStorage.removeItem(STUDENT_PROGRESS_KEY);
+    }
+    currentUser = null;
+    await supabaseClient.auth.signOut();
+    studentArea.hidden = true;
+    landingPage.hidden = false;
+    renderAuthState();
+    window.alert("Sua conta foi excluída.");
+}
+
 logoutButton.addEventListener("click", logout);
 dashboardLogout.addEventListener("click", logout);
+deleteAccountButton.addEventListener("click", deleteAccount);
+dashboardDeleteAccount.addEventListener("click", deleteAccount);
 
 async function initializeAuth() {
     const { data } = await supabaseClient.auth.getUser();
