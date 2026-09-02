@@ -208,11 +208,27 @@ checkQuiz.addEventListener('click', () => {
   let answered = 0;
   lesson.quiz.forEach((item, index) => {
     const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+    const fieldset = document.querySelector(`fieldset[data-question="${index}"]`);
+    fieldset.classList.remove('is-correct', 'is-wrong');
     if (!selected) return;
     answered += 1;
-    if (Number(selected.value) === item.c) correct += 1;
+    if (Number(selected.value) === item.c) {
+      correct += 1;
+      fieldset.classList.add('is-correct');
+    } else fieldset.classList.add('is-wrong');
   });
-  quizResult.textContent = answered < lesson.quiz.length ? `Responda às ${lesson.quiz.length} perguntas para corrigir.` : `Você acertou ${correct} de ${lesson.quiz.length}. ${correct === lesson.quiz.length ? 'Excelente — pode concluir a aula.' : 'Revise os pontos acima e tente novamente se quiser.'}`;
+  if (answered < lesson.quiz.length) {
+    quizResult.className = 'quiz-result is-pending';
+    quizResult.innerHTML = `<strong>QUASE LÁ</strong><span>Responda às ${lesson.quiz.length} perguntas para liberar uma correção completa. Releia a aula com calma: o objetivo é aprender, não correr.</span>`;
+    return;
+  }
+  if (correct === lesson.quiz.length) {
+    quizResult.className = 'quiz-result is-success';
+    quizResult.innerHTML = `<strong>DOMÍNIO CONFIRMADO · ${correct}/${lesson.quiz.length}</strong><span>Excelente leitura. Você identificou os pontos centrais desta aula; registre a conclusão e siga para o próximo passo da trilha.</span>`;
+    return;
+  }
+  quizResult.className = 'quiz-result is-review';
+  quizResult.innerHTML = `<strong>BOA TENTATIVA · ${correct}/${lesson.quiz.length}</strong><span>Você já consolidou parte do conteúdo. Os destaques em verde mostram os acertos; revise os pontos sinalizados e tente novamente quando quiser.</span>`;
 });
 
 connectProgress();
