@@ -112,6 +112,20 @@ button {
     color: var(--accent);
 }
 
+.nav-student-access {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 800;
+    transition: 0.25s ease;
+}
+
+.nav-student-access:hover {
+    color: var(--accent-hover);
+}
+
 .btn-login {
     border: 1px solid var(--border);
 
@@ -2447,6 +2461,17 @@ body.nav-moving::before {
     font-size: 13px;
     font-weight: 800;
     text-align: left;
+}
+
+@media (max-width: 1000px) {
+    .nav-student-access {
+        min-height: 46px;
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        border-radius: 10px;
+        background: rgba(200, 255, 57, 0.1);
+    }
 }
 
 @media (min-width: 1001px) {

@@ -133,6 +133,8 @@ document.querySelectorAll(".nav a").forEach(link => {
 });
 
 function openStudentAccess() {
+    nav.classList.remove("active");
+    menuMobile.setAttribute("aria-expanded", "false");
     if (getCurrentUser()) {
         enterStudentArea();
         return;
@@ -143,6 +145,9 @@ function openStudentAccess() {
 
 openLogin.addEventListener("click", openStudentAccess);
 openLoginMobile.addEventListener("click", openStudentAccess);
+document.querySelectorAll("[data-student-access]").forEach(button => {
+    button.addEventListener("click", openStudentAccess);
+});
 closeLogin.addEventListener("click", () => closeModal(loginModal));
 closeContent.addEventListener("click", () => closeModal(contentModal));
 completeLesson.addEventListener("click", completeActiveLesson);
