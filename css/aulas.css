@@ -20,6 +20,9 @@ p { margin: 0 0 14px; }
 .objectives li, .mistakes li { padding: 4px 0; }
 li::marker { color: var(--lime); }
 .content-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+.deep-dive { margin: 42px 0 28px; }
+.deep-dive > h2 { margin-top: 8px; }
+.deep-dive article { margin: 16px 0; }
 .lesson-section { min-height: 100%; }
 .lesson-section p { color: #dce3dd; }
 .section-number { display: block; margin-bottom: 12px; }
@@ -33,6 +36,14 @@ li::marker { color: var(--lime); }
 .two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .mistakes { border-color: #42523f; }
 .challenge { border-color: #58712d; }
+.quiz { margin-top: 26px; border-color: #6b8636; }
+.quiz fieldset { margin: 20px 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; }
+.quiz legend { padding: 0 6px; color: var(--text); font-weight: 700; }
+.quiz label { display: block; padding: 7px 0; color: var(--muted); cursor: pointer; }
+.quiz input { accent-color: var(--lime); }
+.quiz-button { padding: 11px 16px; border: 1px solid var(--lime); border-radius: 999px; background: transparent; color: var(--lime); font-weight: 800; cursor: pointer; }
+.quiz-button:hover { background: var(--lime); color: var(--black); }
+.quiz-result { min-height: 28px; margin: 14px 0 0; color: var(--muted); }
 .completion { margin-top: 24px; text-align: center; border-color: #58712d; }
 .complete-button { display: block; width: min(100%, 320px); margin: 20px auto 8px; padding: 13px 18px; border: 1px solid var(--lime); border-radius: 999px; background: var(--lime); color: var(--black); font: 800 1rem Arial, sans-serif; cursor: pointer; }
 .complete-button:hover { background: #d8ff72; transform: translateY(-1px); }
