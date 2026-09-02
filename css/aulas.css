@@ -33,7 +33,11 @@ li::marker { color: var(--lime); }
 .two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .mistakes { border-color: #42523f; }
 .challenge { border-color: #58712d; }
-.completion { margin-top: 24px; text-align: center; }
+.completion { margin-top: 24px; text-align: center; border-color: #58712d; }
+.complete-button { display: block; width: min(100%, 320px); margin: 20px auto 8px; padding: 13px 18px; border: 1px solid var(--lime); border-radius: 999px; background: var(--lime); color: var(--black); font: 800 1rem Arial, sans-serif; cursor: pointer; }
+.complete-button:hover { background: #d8ff72; transform: translateY(-1px); }
+.complete-button.is-complete { border-color: #537e1f; background: #1b3012; color: var(--lime); }
+.completion-message { min-height: 25px; color: var(--muted); font-size: .92rem; }
 .completion a { display: inline-block; margin-top: 8px; padding: 10px 16px; border: 1px solid var(--lime); border-radius: 999px; color: var(--lime); font-weight: 700; text-decoration: none; }
 .completion a:hover { background: var(--lime); color: var(--black); }
 @media (max-width: 760px) { .wrap { width: min(92%, 1040px); padding-top: 42px; } .content-grid, .two-columns, .visual-explainer { grid-template-columns: 1fr; } .card, .demo { padding: 21px; } .top { padding: 15px 4%; } .lesson-hero img { min-height: 210px; } }

@@ -50,9 +50,9 @@ const LESSONS = {
   progressao: {
     title: 'Hipertrofia, Força e Resistência',
     subtitle: 'Entenda como objetivo, volume, intensidade e descanso mudam o desenho de uma sessão.',
-    image: '../img/hologram-push.png',
-    alt: 'Holograma realizando supino com músculos do peitoral e tríceps destacados',
-    secondaryImage: '../img/hologram-squat.png',
+    image: '../img/hologram-hinge.png',
+    alt: 'Holograma executando levantamento com ênfase em glúteos e posteriores da coxa',
+    secondaryImage: '../img/hologram-press.png',
     objectives: ['Distinguir metas de força, hipertrofia e resistência', 'Compreender volume, intensidade e proximidade da falha', 'Progredir sem perder a técnica'],
     sections: [
       ['Três capacidades, uma base comum', 'Força é a capacidade de produzir força em uma tarefa; hipertrofia é o aumento do tamanho muscular ao longo do tempo; resistência muscular é sustentar ou repetir esforço com qualidade. Elas se sobrepõem: quem treina força pode ganhar massa, e quem busca hipertrofia também precisa ficar mais capaz de lidar com o treino. O ponto central é priorizar. Uma prática voltada para força tende a incluir mais contato com cargas altas e movimentos específicos. Hipertrofia requer volume produtivo e estímulo bem distribuído. Resistência usa exposições repetidas, sem abandonar a execução.'],
@@ -66,9 +66,9 @@ const LESSONS = {
   mobilidade: {
     title: 'Montagem de Programas de Treino',
     subtitle: 'Estruture uma rotina que respeite objetivo, agenda, experiência e recuperação.',
-    image: '../img/hologram-squat.png',
-    alt: 'Holograma executando agachamento com músculos das pernas destacados',
-    secondaryImage: '../img/hologram-pull.png',
+    image: '../img/hologram-lunge.png',
+    alt: 'Holograma executando avanço reverso com músculos das pernas destacados',
+    secondaryImage: '../img/hologram-hinge.png',
     objectives: ['Organizar frequência e divisão semanal', 'Selecionar exercícios por função', 'Criar uma rotina adaptável à vida real'],
     sections: [
       ['A melhor divisão é a que você consegue repetir', 'Antes de escolher uma divisão famosa, defina quantos dias e quantos minutos você realmente tem. Duas ou três sessões de corpo inteiro podem servir muito bem a quem está começando. Mais dias permitem distribuir trabalho, mas também aumentam a necessidade de planejamento e recuperação. O programa deve cobrir padrões importantes ao longo da semana, sem forçar todos os movimentos em um único dia. Consistência por meses vale mais que uma rotina perfeita mantida por poucos dias.'],
@@ -82,9 +82,9 @@ const LESSONS = {
   recuperacao: {
     title: 'Métodos e Acompanhamento',
     subtitle: 'Use técnicas avançadas com intenção e acompanhe dados para saber quando ajustar o plano.',
-    image: '../img/hologram-pull.png',
-    alt: 'Holograma realizando remada com costas e bíceps destacados',
-    secondaryImage: '../img/hologram-push.png',
+    image: '../img/hologram-press.png',
+    alt: 'Holograma realizando desenvolvimento acima da cabeça com ombros destacados',
+    secondaryImage: '../img/hologram-lunge.png',
     objectives: ['Conhecer métodos de intensificação e seus limites', 'Registrar desempenho e recuperação', 'Tomar decisões com dados e não apenas impulso'],
     sections: [
       ['Métodos são ferramentas, não obrigação', 'Supersérie combina dois exercícios com pouco intervalo; drop set reduz a carga após uma série; pirâmide altera carga ou repetições entre séries; rest-pause usa pausas breves dentro de uma sequência. Eles podem tornar uma sessão mais densa ou aumentar o desafio local, mas não substituem técnica, progressão e recuperação. Quanto mais intensa a estratégia, maior a importância de selecionar exercícios estáveis e praticantes experientes. Use uma técnica por vez, com objetivo claro, em vez de transformar todo treino em teste de resistência.'],
@@ -132,5 +132,22 @@ document.querySelector('#app').innerHTML = `
     <article class="card mistakes"><h2>Erros comuns</h2><ul>${list(lesson.mistakes)}</ul></article>
     <article class="card challenge"><span class="eyebrow">PRÁTICA DE ESTUDO</span><h2>Missão da aula</h2><p>${lesson.challenge}</p></article>
   </section>
-  <section class="completion card"><h2>Antes de avançar</h2><p>Revise os pontos centrais, aplique apenas o que você consegue executar com controle e use o registro para orientar o próximo treino.</p><a href="../index.html#area-do-aluno">Voltar para a área do aluno</a></section>
+  <section class="completion card"><span class="eyebrow">FINAL DA AULA</span><h2>Pronto para avançar?</h2><p>Revise os pontos centrais, aplique apenas o que você consegue executar com controle e use o registro para orientar o próximo treino.</p><button type="button" class="complete-button" id="completeLesson">Concluir aula</button><p class="completion-message" id="completionMessage" aria-live="polite"></p><a href="../index.html#area-do-aluno">Voltar para a área do aluno</a></section>
 `;
+
+const completionKey = `potencia-lesson-complete-${document.body.dataset.lesson}`;
+const completeButton = document.querySelector('#completeLesson');
+const completionMessage = document.querySelector('#completionMessage');
+
+function showCompleteState() {
+  completeButton.textContent = '✓ Aula concluída';
+  completeButton.classList.add('is-complete');
+  completionMessage.textContent = 'Seu progresso foi registrado neste dispositivo.';
+}
+
+if (localStorage.getItem(completionKey) === 'true') showCompleteState();
+
+completeButton.addEventListener('click', () => {
+  localStorage.setItem(completionKey, 'true');
+  showCompleteState();
+});
