@@ -202,6 +202,7 @@ const accountAvatar = document.getElementById("accountAvatar");
 const logoutButton = document.getElementById("logoutButton");
 const deleteAccountButton = document.getElementById("deleteAccountButton");
 const dashboardDeleteAccount = document.getElementById("dashboardDeleteAccount");
+const resendConfirmation = document.getElementById("resendConfirmation");
 const STUDENT_PROGRESS_KEY = "potenciaLessonProgress";
 const supabaseClient = window.supabase.createClient(
     "https://qskikljnenmozeanygtw.supabase.co",
@@ -299,6 +300,20 @@ function setAuthMessage(element, text, type) {
     element.className = `login-message ${type}`;
 }
 
+function getAuthErrorMessage(error) {
+    const message = error?.message?.toLowerCase() || "";
+    if (message.includes("email not confirmed")) {
+        return "Confirme sua conta pelo e-mail enviado pelo Supabase antes de entrar.";
+    }
+    if (message.includes("invalid login credentials")) {
+        return "E-mail ou senha incorretos. Se acabou de criar a conta, confirme primeiro o e-mail recebido.";
+    }
+    if (message.includes("user already registered")) {
+        return "Este e-mail já está cadastrado. Confira a caixa de entrada para confirmar a conta ou tente entrar.";
+    }
+    return error?.message || "Não foi possível concluir o acesso. Tente novamente.";
+}
+
 function setAuthMode(mode) {
     const isRegister = mode === "register";
     loginForm.hidden = isRegister;
@@ -377,7 +392,7 @@ registerForm.addEventListener("submit", async event => {
     });
 
     if (error) {
-        setAuthMessage(registerMessage, error.message, "error");
+        setAuthMessage(registerMessage, getAuthErrorMessage(error), "error");
         return;
     }
 
@@ -400,7 +415,7 @@ loginForm.addEventListener("submit", async event => {
         password: form.elements.password.value
     });
     if (error) {
-        setAuthMessage(loginMessage, "E-mail ou senha inválidos. Se você já tinha uma conta local, crie-a novamente nesta versão.", "error");
+        setAuthMessage(loginMessage, getAuthErrorMessage(error), "error");
         return;
     }
 
@@ -408,6 +423,24 @@ loginForm.addEventListener("submit", async event => {
     form.reset();
     renderAuthState();
     enterStudentArea();
+});
+
+resendConfirmation.addEventListener("click", async () => {
+    const email = loginForm.elements.email.value.trim().toLowerCase();
+    if (!email) {
+        setAuthMessage(loginMessage, "Digite seu e-mail acima para receber uma nova confirmação.", "error");
+        return;
+    }
+    const { error } = await supabaseClient.auth.resend({
+        type: "signup",
+        email,
+        options: { emailRedirectTo: window.location.origin }
+    });
+    if (error) {
+        setAuthMessage(loginMessage, getAuthErrorMessage(error), "error");
+        return;
+    }
+    setAuthMessage(loginMessage, "E-mail de confirmação reenviado. Confira a caixa de entrada e o spam.", "success");
 });
 
 async function logout() {
