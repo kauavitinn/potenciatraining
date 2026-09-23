@@ -608,7 +608,7 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll(".feature-card, .training-card, .preview-item, .contact-card").forEach(element => observer.observe(element));
 
 const STORE_PRODUCTS = {
-    "curso-completo": { name: "Potência Training Completo", price: 80, checkoutUrl: "" },
+    "curso-completo": { name: "Potência Training Completo", price: 80, checkoutUrl: "https://pay.cakto.com.br/34i8maa_1132201" },
     "guia-funcional": { name: "Guia de Treino Funcional", price: 29 },
     planner: { name: "Planner de Evolução", price: 19 }
 };
