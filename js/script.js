@@ -3,6 +3,7 @@ const nav = document.querySelector(".nav");
 const loginModal = document.getElementById("loginModal");
 const contentModal = document.getElementById("contentModal");
 const openLogin = document.getElementById("openLogin");
+const openRegister = document.getElementById("openRegister");
 const openLoginMobile = document.getElementById("openLoginMobile");
 const closeLogin = document.getElementById("closeLogin");
 const closeContent = document.getElementById("closeContent");
@@ -143,7 +144,17 @@ function openStudentAccess() {
     openModal(loginModal);
 }
 
+function openRegisterAccess() {
+    if (getCurrentUser()) {
+        enterStudentArea();
+        return;
+    }
+    setAuthMode("register");
+    openModal(loginModal);
+}
+
 openLogin.addEventListener("click", openStudentAccess);
+openRegister.addEventListener("click", openRegisterAccess);
 openLoginMobile.addEventListener("click", openStudentAccess);
 document.querySelectorAll("[data-student-access]").forEach(button => {
     button.addEventListener("click", openStudentAccess);
@@ -331,6 +342,7 @@ function renderAuthState() {
     const user = getCurrentUser();
     if (!user) {
         openLogin.textContent = "Entrar";
+        openRegister.hidden = false;
         openLoginMobile.textContent = "Entrar na área do aluno";
         setAuthMode("login");
         return;
@@ -345,6 +357,7 @@ function renderAuthState() {
     accountEmail.textContent = user.email;
     accountAvatar.textContent = getUserName(user).trim().charAt(0).toUpperCase();
     openLogin.textContent = "Minhas aulas";
+    openRegister.hidden = true;
     openLoginMobile.textContent = "Minhas aulas";
 }
 
@@ -645,6 +658,13 @@ cartItems.addEventListener("click", event => {
 });
 document.getElementById("checkoutCart").addEventListener("click", () => {
     if (!getCart().length) return;
+    if (!getCurrentUser()) {
+        closeCartDrawer();
+        setAuthMode("login");
+        authIntro.textContent = "Para continuar a compra, entre na sua conta ou crie uma conta gratuita.";
+        openModal(loginModal);
+        return;
+    }
     window.alert("Checkout preparado. Conecte sua oferta da Kiwify para receber pagamentos e liberar o acesso automaticamente.");
 });
 renderCart();
