@@ -1,16 +1,18 @@
 export default async function handler(request, response) {
   if (request.method !== 'POST') return response.status(405).json({ error: 'Method not allowed' });
-  if (!process.env.CAKTO_WEBHOOK_TOKEN || request.query.token !== process.env.CAKTO_WEBHOOK_TOKEN) {
+
+  const payload = request.body || {};
+  const webhookSecret = process.env.CAKTO_WEBHOOK_SECRET;
+  if (!webhookSecret || !safeEqual(String(payload.secret || ''), webhookSecret)) {
     return response.status(401).json({ error: 'Unauthorized' });
   }
 
-  const payload = request.body || {};
   const event = String(payload.event || payload.type || '').toLowerCase();
   const data = payload.data || payload;
   const status = String(data.status || data.order_status || payload.status || '').toLowerCase();
   const isPaid = event === 'purchase_approved' || status === 'paid';
   const isRevoked = ['refund', 'purchase_refunded', 'chargeback', 'purchase_cancelled'].includes(event)
-    || ['refunded', 'cancelled', 'chargeback'].includes(status);
+    || ['refunded', 'cancelled', 'chargeback', 'chargedback'].includes(status);
   if (!isPaid && !isRevoked) return response.status(200).json({ ignored: true });
 
   const values = JSON.stringify(payload);
@@ -44,4 +46,13 @@ export default async function handler(request, response) {
   });
   if (!upsert.ok) return response.status(502).json({ error: 'Could not grant course access' });
   return response.status(200).json({ received: true });
+}
+
+function safeEqual(received, expected) {
+  if (received.length !== expected.length) return false;
+  let difference = 0;
+  for (let index = 0; index < received.length; index += 1) {
+    difference |= received.charCodeAt(index) ^ expected.charCodeAt(index);
+  }
+  return difference === 0;
 }
