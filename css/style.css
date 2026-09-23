@@ -156,6 +156,8 @@ button {
     align-items: center;
     gap: 8px;
 }
+.header-logout { border: 0; padding: 10px 8px; background: transparent; color: #ffaaa0; font-weight: 800; cursor: pointer; }
+.header-logout:hover { color: #ffd0cb; text-decoration: underline; }
 
 .menu-mobile {
     display: none;

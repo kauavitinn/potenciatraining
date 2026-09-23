@@ -211,6 +211,7 @@ const accountName = document.getElementById("accountName");
 const accountEmail = document.getElementById("accountEmail");
 const accountAvatar = document.getElementById("accountAvatar");
 const logoutButton = document.getElementById("logoutButton");
+const headerLogout = document.getElementById("headerLogout");
 const deleteAccountButton = document.getElementById("deleteAccountButton");
 const dashboardDeleteAccount = document.getElementById("dashboardDeleteAccount");
 const resendConfirmation = document.getElementById("resendConfirmation");
@@ -343,6 +344,7 @@ function renderAuthState() {
     if (!user) {
         openLogin.textContent = "Login";
         openRegister.hidden = false;
+        headerLogout.hidden = true;
         openLoginMobile.textContent = "Entrar na área do aluno";
         setAuthMode("login");
         return;
@@ -358,6 +360,7 @@ function renderAuthState() {
     accountAvatar.textContent = getUserName(user).trim().charAt(0).toUpperCase();
     openLogin.textContent = "Minhas aulas";
     openRegister.hidden = true;
+    headerLogout.hidden = false;
     openLoginMobile.textContent = "Minhas aulas";
 }
 
@@ -494,6 +497,7 @@ async function deleteAccount() {
 }
 
 logoutButton.addEventListener("click", logout);
+headerLogout.addEventListener("click", logout);
 dashboardLogout.addEventListener("click", logout);
 deleteAccountButton.addEventListener("click", deleteAccount);
 dashboardDeleteAccount.addEventListener("click", deleteAccount);
