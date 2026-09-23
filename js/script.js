@@ -325,7 +325,7 @@ function setAuthMode(mode) {
     authHeading.textContent = isRegister ? "Crie sua conta" : "Bem-vindo de volta!";
     authIntro.textContent = isRegister
         ? "Cadastre-se para acompanhar conteúdos e novidades."
-        : "Entre na sua conta para acessar seus conteúdos.";
+        : "Use sua conta existente para acessar seus conteúdos.";
     document.querySelectorAll("[data-auth-mode]").forEach(button => {
         const active = button.dataset.authMode === mode;
         button.classList.toggle("active", active);
@@ -341,7 +341,7 @@ function setAuthMode(mode) {
 function renderAuthState() {
     const user = getCurrentUser();
     if (!user) {
-        openLogin.textContent = "Entrar";
+        openLogin.textContent = "Login";
         openRegister.hidden = false;
         openLoginMobile.textContent = "Entrar na área do aluno";
         setAuthMode("login");
@@ -612,7 +612,7 @@ function money(value) {
 function renderCart() {
     const cart = getCart();
     const total = cart.reduce((sum, id) => sum + STORE_PRODUCTS[id].price, 0);
-    cartCount.textContent = cart.length;
+    if (cartCount) cartCount.textContent = cart.length;
     cartTotal.textContent = money(total);
     cartItems.innerHTML = cart.length
         ? cart.map((id, index) => `<div class="cart-row"><div><strong>${STORE_PRODUCTS[id].name}</strong><span>${money(STORE_PRODUCTS[id].price)}</span><button type="button" data-remove-cart="${index}">Remover</button></div><b>${money(STORE_PRODUCTS[id].price)}</b></div>`).join("")
@@ -641,7 +641,7 @@ function closeCartDrawer() {
     document.body.style.overflow = "";
 }
 
-document.getElementById("openCart").addEventListener("click", openCartDrawer);
+document.getElementById("openCart")?.addEventListener("click", openCartDrawer);
 document.getElementById("closeCart").addEventListener("click", closeCartDrawer);
 cartOverlay.addEventListener("click", closeCartDrawer);
 document.querySelectorAll(".add-cart").forEach(button => button.addEventListener("click", () => {
