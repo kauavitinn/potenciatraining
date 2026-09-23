@@ -499,8 +499,8 @@ supabaseClient.auth.onAuthStateChange((_event, session) => {
 initializeAuth();
 
 document.getElementById("buyCourse").addEventListener("click", () => {
-    document.getElementById("interestForm").scrollIntoView({ behavior: "smooth", block: "center" });
-    document.getElementById("interestName").focus({ preventScroll: true });
+    addToCart("curso-completo");
+    openCartDrawer();
 });
 
 document.getElementById("interestForm").addEventListener("submit", event => {
@@ -575,3 +575,76 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.15 });
 
 document.querySelectorAll(".feature-card, .training-card, .preview-item, .contact-card").forEach(element => observer.observe(element));
+
+const STORE_PRODUCTS = {
+    "curso-completo": { name: "Potência Training Completo", price: 80 },
+    "guia-funcional": { name: "Guia de Treino Funcional", price: 29 },
+    planner: { name: "Planner de Evolução", price: 19 }
+};
+const CART_KEY = "potenciaStoreCart";
+const cartDrawer = document.getElementById("cartDrawer");
+const cartOverlay = document.getElementById("cartOverlay");
+const cartItems = document.getElementById("cartItems");
+const cartCount = document.getElementById("cartCount");
+const cartTotal = document.getElementById("cartTotal");
+
+function getCart() {
+    try { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); } catch { return []; }
+}
+
+function money(value) {
+    return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
+
+function renderCart() {
+    const cart = getCart();
+    const total = cart.reduce((sum, id) => sum + STORE_PRODUCTS[id].price, 0);
+    cartCount.textContent = cart.length;
+    cartTotal.textContent = money(total);
+    cartItems.innerHTML = cart.length
+        ? cart.map((id, index) => `<div class="cart-row"><div><strong>${STORE_PRODUCTS[id].name}</strong><span>${money(STORE_PRODUCTS[id].price)}</span><button type="button" data-remove-cart="${index}">Remover</button></div><b>${money(STORE_PRODUCTS[id].price)}</b></div>`).join("")
+        : '<p class="cart-empty">Seu carrinho está vazio. Escolha um produto na loja.</p>';
+}
+
+function addToCart(id) {
+    const cart = getCart();
+    if (!STORE_PRODUCTS[id]) return;
+    cart.push(id);
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    renderCart();
+}
+
+function openCartDrawer() {
+    cartDrawer.classList.add("active");
+    cartDrawer.setAttribute("aria-hidden", "false");
+    cartOverlay.hidden = false;
+    document.body.style.overflow = "hidden";
+}
+
+function closeCartDrawer() {
+    cartDrawer.classList.remove("active");
+    cartDrawer.setAttribute("aria-hidden", "true");
+    cartOverlay.hidden = true;
+    document.body.style.overflow = "";
+}
+
+document.getElementById("openCart").addEventListener("click", openCartDrawer);
+document.getElementById("closeCart").addEventListener("click", closeCartDrawer);
+cartOverlay.addEventListener("click", closeCartDrawer);
+document.querySelectorAll(".add-cart").forEach(button => button.addEventListener("click", () => {
+    addToCart(button.dataset.product);
+    openCartDrawer();
+}));
+cartItems.addEventListener("click", event => {
+    const index = Number(event.target.dataset.removeCart);
+    if (!Number.isInteger(index)) return;
+    const cart = getCart();
+    cart.splice(index, 1);
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    renderCart();
+});
+document.getElementById("checkoutCart").addEventListener("click", () => {
+    if (!getCart().length) return;
+    window.alert("Checkout preparado. Conecte sua oferta da Kiwify para receber pagamentos e liberar o acesso automaticamente.");
+});
+renderCart();

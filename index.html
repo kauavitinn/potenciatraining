@@ -47,6 +47,7 @@
                 <a href="#sobre">Sobre</a>
                 <a href="#treinos">Treinos</a>
                 <a href="#metodo">Método</a>
+                <a href="#loja">Loja</a>
                 <a href="#curso">Curso</a>
                 <button class="nav-student-access" type="button" data-student-access>Área do aluno</button>
                 <a href="#contato">Contato</a>
@@ -57,6 +58,9 @@
             <!-- Botão de Login -->
             <button class="btn btn-login" id="openLogin">
                 Entrar
+            </button>
+            <button class="cart-button" id="openCart" type="button" aria-label="Abrir carrinho">
+                Carrinho <span id="cartCount">0</span>
             </button>
 
             <!-- Botão para menu mobile -->
@@ -630,6 +634,38 @@
 
 
         <!-- =========================
+             LOJA
+        ========================== -->
+        <section class="shop" id="loja">
+            <div class="container">
+                <div class="shop-heading">
+                    <div><span class="section-tag">LOJA POTÊNCIA</span><h2>Cursos e materiais para <strong>evoluir no seu ritmo.</strong></h2></div>
+                    <p>Escolha seu próximo passo. Após a compra aprovada, o acesso será liberado na sua Área do Aluno.</p>
+                </div>
+                <div class="shop-grid">
+                    <article class="product-card product-featured">
+                        <img src="img/musculacao-training.png" alt="Ilustração de musculação">
+                        <span>CURSO ONLINE</span><h3>Potência Training Completo</h3>
+                        <p>6 módulos, aulas detalhadas, avaliações e progresso individual.</p>
+                        <div class="product-footer"><strong>R$ 80,00</strong><button type="button" class="add-cart" data-product="curso-completo">Adicionar</button></div>
+                    </article>
+                    <article class="product-card">
+                        <img src="img/funcional-training.png" alt="Treinamento funcional">
+                        <span>MATERIAL DIGITAL</span><h3>Guia de Treino Funcional</h3>
+                        <p>Um roteiro prático para trabalhar padrões de movimento e condicionamento.</p>
+                        <div class="product-footer"><strong>R$ 29,00</strong><button type="button" class="add-cart" data-product="guia-funcional">Adicionar</button></div>
+                    </article>
+                    <article class="product-card">
+                        <img src="img/performance-training.png" alt="Preparação física e performance">
+                        <span>PLANO DIGITAL</span><h3>Planner de Evolução</h3>
+                        <p>Planilha de organização, registro de cargas e acompanhamento semanal.</p>
+                        <div class="product-footer"><strong>R$ 19,00</strong><button type="button" class="add-cart" data-product="planner">Adicionar</button></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
              CURSO
         ========================== -->
 
@@ -1007,6 +1043,15 @@
 
     </footer>
 
+
+    <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Carrinho de compras">
+        <div class="cart-drawer-head"><div><span class="section-tag">SEU PEDIDO</span><h2>Carrinho</h2></div><button id="closeCart" type="button" aria-label="Fechar carrinho">×</button></div>
+        <div id="cartItems" class="cart-items"><p class="cart-empty">Seu carrinho está vazio. Escolha um produto na loja.</p></div>
+        <div class="cart-summary"><span>Total</span><strong id="cartTotal">R$ 0,00</strong></div>
+        <button class="btn btn-primary cart-checkout" id="checkoutCart" type="button">Ir para pagamento</button>
+        <p class="cart-note">Pagamento seguro. O checkout será conectado à Kiwify na etapa de vendas.</p>
+    </aside>
+    <div class="cart-overlay" id="cartOverlay" hidden></div>
 
     <!-- =========================
          MODAL DE LOGIN
