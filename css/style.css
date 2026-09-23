@@ -150,6 +150,13 @@ button {
     transform: translateY(-2px);
 }
 
+.header-account-actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 8px;
+}
+
 .menu-mobile {
     display: none;
 
@@ -1367,7 +1374,7 @@ button {
 .cart-drawer-head h2 { margin: 4px 0 0; font-size: 38px; }.cart-drawer-head button { border: 0; background: transparent; color: var(--text); font-size: 32px; cursor: pointer; }
 .cart-items { flex: 1; overflow: auto; padding: 18px 0; }.cart-empty,.cart-note { color: var(--muted); font-size: 13px; }.cart-row { display:flex; justify-content:space-between; gap:14px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,.1); }.cart-row strong,.cart-row span { display:block; }.cart-row span { color:var(--muted); font-size:13px; }.cart-row button { margin-top:6px; padding:0; border:0; background:transparent; color:#ff9999; cursor:pointer; font-size:12px; }
 .cart-summary { display:flex; justify-content:space-between; padding:18px 0; border-top:1px solid rgba(255,255,255,.12); font-size:18px; }.cart-summary strong { color:var(--accent); }.cart-checkout { width:100%; }.cart-note { text-align:center; margin:14px 0 0; }.cart-overlay { position:fixed; z-index:1000; inset:0; background:rgba(0,0,0,.65); }
-@media (max-width: 800px) { .shop { padding: 75px 0; }.shop-heading { display:block; }.shop-heading p { margin-top:18px; }.shop-grid { grid-template-columns:1fr; }.cart-button { margin-left:auto; }.header-content { gap:9px; }.btn-login, .btn-register { display:none; } }
+@media (max-width: 800px) { .shop { padding: 75px 0; }.shop-heading { display:block; }.shop-heading p { margin-top:18px; }.shop-grid { grid-template-columns:1fr; }.cart-button { margin-left:auto; }.header-content { gap:9px; }.header-account-actions { display:none; } }
 
 /* EXPERIÊNCIA EM VÍDEO E CAPTAÇÃO */
 button,
