@@ -2547,6 +2547,48 @@ body.nav-moving::before {
     margin-top: 8px;
 }
 
+/* AULAS PAGAS */
+.access-pending #app {
+    visibility: hidden;
+}
+
+.locked-course {
+    max-width: 720px;
+    margin: 84px auto;
+    padding: 42px;
+    text-align: center;
+}
+
+.locked-course h1 {
+    margin: 14px 0;
+}
+
+.locked-course p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.locked-course a {
+    display: inline-flex;
+    margin: 16px 6px 0;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #0b120c;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.locked-course .locked-login {
+    background: transparent;
+    border: 1px solid rgba(200, 255, 57, .55);
+    color: var(--accent);
+}
+
+@media (max-width: 650px) {
+    .locked-course { margin: 36px 18px; padding: 28px 20px; }
+}
+
 @media (max-width: 650px) {
     .student-account-actions {
         width: 100%;

@@ -221,9 +221,15 @@ const supabaseClient = window.supabase.createClient(
     "sb_publishable_5ymf4X_2eJY0lL2qItjEgw_bNoyWEh-"
 );
 let currentUser = null;
+const COURSE_ACCESS_KEY = "potencia-training-completo";
 
 function getCurrentUser() {
     return currentUser;
+}
+
+async function hasPaidCourseAccess() {
+    const { data, error } = await supabaseClient.rpc("has_course_access", { requested_course: COURSE_ACCESS_KEY });
+    return !error && data === true;
 }
 
 function getUserName(user) {
@@ -257,11 +263,19 @@ function renderStudentProgress() {
     });
 }
 
-function enterStudentArea() {
+async function enterStudentArea() {
     const user = getCurrentUser();
     if (!user) {
         renderAuthState();
         openModal(loginModal);
+        return;
+    }
+    if (!(await hasPaidCourseAccess())) {
+        studentArea.hidden = true;
+        landingPage.hidden = false;
+        closeModal(loginModal);
+        window.alert("Sua conta foi criada, mas o acesso às aulas é liberado somente após a confirmação do pagamento. Escolha o curso na loja para continuar.");
+        document.getElementById("loja")?.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
     }
     studentFirstName.textContent = getUserName(user).trim().split(/\s+/)[0] || "Aluno";
@@ -274,8 +288,8 @@ function enterStudentArea() {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function showStudentLesson(key) {
-    if (!lessons[key] || !getCurrentUser()) return;
+async function showStudentLesson(key) {
+    if (!lessons[key] || !getCurrentUser() || !(await hasPaidCourseAccess())) return;
     window.location.href = `aulas/${key}.html`;
 }
 
@@ -594,7 +608,7 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll(".feature-card, .training-card, .preview-item, .contact-card").forEach(element => observer.observe(element));
 
 const STORE_PRODUCTS = {
-    "curso-completo": { name: "Potência Training Completo", price: 80 },
+    "curso-completo": { name: "Potência Training Completo", price: 80, checkoutUrl: "" },
     "guia-funcional": { name: "Guia de Treino Funcional", price: 29 },
     planner: { name: "Planner de Evolução", price: 19 }
 };
@@ -669,6 +683,12 @@ document.getElementById("checkoutCart").addEventListener("click", () => {
         openModal(loginModal);
         return;
     }
-    window.alert("Checkout preparado. Conecte sua oferta da Kiwify para receber pagamentos e liberar o acesso automaticamente.");
+    const cart = getCart();
+    const course = cart.find(productId => STORE_PRODUCTS[productId]?.checkoutUrl);
+    if (!course) {
+        window.alert("O link de pagamento da Cakto ainda está sendo configurado. Tente novamente em alguns instantes.");
+        return;
+    }
+    window.location.assign(STORE_PRODUCTS[course].checkoutUrl);
 });
 renderCart();

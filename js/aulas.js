@@ -1,3 +1,5 @@
+document.documentElement.classList.add('access-pending');
+
 const LESSONS = {
   fundamentos: {
     title: 'Fundamentos da Musculação',
@@ -258,19 +260,30 @@ function saveCompletion() {
 
 async function connectProgress() {
   if (!window.supabase) {
-    completionMessage.textContent = 'Não foi possível conectar seu progresso agora.';
+    showLocked('Não foi possível verificar sua conta agora. Tente novamente em instantes.');
     return;
   }
   const client = window.supabase.createClient('https://qskikljnenmozeanygtw.supabase.co', 'sb_publishable_5ymf4X_2eJY0lL2qItjEgw_bNoyWEh-');
   const { data } = await client.auth.getSession();
   studentId = data.session?.user?.id || null;
   if (!studentId) {
-    completionMessage.textContent = 'Entre na sua conta para registrar a conclusão no seu progresso.';
+    showLocked('Entre na sua conta e tenha uma compra aprovada para acessar as aulas.');
+    return;
+  }
+  const access = await client.rpc('has_course_access', { requested_course: 'potencia-training-completo' });
+  if (access.error || access.data !== true) {
+    showLocked('Sua conta ainda não possui acesso a este curso. Após a confirmação do pagamento, o acesso será liberado automaticamente.');
     return;
   }
   const progress = readProgress();
   const completed = Array.isArray(progress[studentId]) ? progress[studentId] : [];
   if (completed.includes(lessonKey)) showCompleteState();
+  document.documentElement.classList.remove('access-pending');
+}
+
+function showLocked(message) {
+  document.querySelector('#app').innerHTML = `<section class="locked-course card"><span class="eyebrow">ACESSO BLOQUEADO</span><h1>Este conteúdo é exclusivo para alunos.</h1><p>${message}</p><a href="../index.html#loja">Ver cursos disponíveis</a><a class="locked-login" href="../index.html">Fazer login</a></section>`;
+  document.documentElement.classList.remove('access-pending');
 }
 
 completeButton.addEventListener('click', () => {
