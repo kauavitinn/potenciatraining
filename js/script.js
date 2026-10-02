@@ -640,7 +640,7 @@ function renderCart() {
     if (cartCount) cartCount.textContent = cart.length;
     cartTotal.textContent = money(total);
     cartItems.innerHTML = cart.length
-        ? cart.map((id, index) => `<div class="cart-row"><div><strong>${STORE_PRODUCTS[id].name}</strong><span>${money(STORE_PRODUCTS[id].price)}</span><button type="button" data-remove-cart="${index}">Remover</button></div><b>${money(STORE_PRODUCTS[id].price)}</b></div>`).join("")
+        ? cart.map((id, index) => `<div class="cart-row"><div><strong>${STORE_PRODUCTS[id].name}</strong><span>${money(STORE_PRODUCTS[id].price)}</span><button class="cart-remove" type="button" data-remove-cart="${index}" aria-label="Remover ${STORE_PRODUCTS[id].name} do carrinho" title="Remover do carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6m4-6v6M9 7l1-2h4l1 2m-9 0 1 13h10l1-13"/></svg></button></div><b>${money(STORE_PRODUCTS[id].price)}</b></div>`).join("")
         : '<p class="cart-empty">Seu carrinho está vazio. Escolha um produto na loja.</p>';
 }
 
@@ -672,7 +672,8 @@ document.querySelectorAll(".add-cart").forEach(button => button.addEventListener
     openCartDrawer();
 }));
 cartItems.addEventListener("click", event => {
-    const index = Number(event.target.dataset.removeCart);
+    const removeButton = event.target.closest("[data-remove-cart]");
+    const index = Number(removeButton?.dataset.removeCart);
     if (!Number.isInteger(index)) return;
     const cart = getCart();
     cart.splice(index, 1);
