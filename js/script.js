@@ -608,9 +608,7 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll(".feature-card, .training-card, .preview-item, .contact-card").forEach(element => observer.observe(element));
 
 const STORE_PRODUCTS = {
-    "curso-completo": { name: "Potência Training Completo", price: 80, checkoutUrl: "https://pay.cakto.com.br/34i8maa_1132201" },
-    "guia-funcional": { name: "Guia de Treino Funcional", price: 29 },
-    planner: { name: "Planner de Evolução", price: 19 }
+    "curso-completo": { name: "Potência Training Completo", price: 80, checkoutUrl: "https://pay.cakto.com.br/34i8maa_1132201" }
 };
 const CART_KEY = "potenciaStoreCart";
 const cartDrawer = document.getElementById("cartDrawer");
@@ -620,7 +618,16 @@ const cartCount = document.getElementById("cartCount");
 const cartTotal = document.getElementById("cartTotal");
 
 function getCart() {
-    try { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); } catch { return []; }
+    try {
+        const savedCart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+        const cart = Array.isArray(savedCart) && savedCart.includes("curso-completo")
+            ? ["curso-completo"]
+            : [];
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        return cart;
+    } catch {
+        return [];
+    }
 }
 
 function money(value) {
@@ -638,10 +645,8 @@ function renderCart() {
 }
 
 function addToCart(id) {
-    const cart = getCart();
     if (!STORE_PRODUCTS[id]) return;
-    cart.push(id);
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    localStorage.setItem(CART_KEY, JSON.stringify([id]));
     renderCart();
 }
 
@@ -683,12 +688,6 @@ document.getElementById("checkoutCart").addEventListener("click", () => {
         openModal(loginModal);
         return;
     }
-    const cart = getCart();
-    const course = cart.find(productId => STORE_PRODUCTS[productId]?.checkoutUrl);
-    if (!course) {
-        window.alert("O link de pagamento da Cakto ainda está sendo configurado. Tente novamente em alguns instantes.");
-        return;
-    }
-    window.location.assign(STORE_PRODUCTS[course].checkoutUrl);
+    window.location.assign(STORE_PRODUCTS["curso-completo"].checkoutUrl);
 });
 renderCart();
