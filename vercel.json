@@ -4,6 +4,11 @@
       "source": "/index.html",
       "destination": "/loja",
       "permanent": true
+    },
+    {
+      "source": "/curso.html",
+      "destination": "/curso",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -14,6 +19,10 @@
     {
       "source": "/loja",
       "destination": "/index.html"
+    },
+    {
+      "source": "/curso",
+      "destination": "/curso.html"
     }
   ]
 }
