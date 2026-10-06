@@ -1,11 +1,6 @@
 {
   "redirects": [
     {
-      "source": "/curso.html",
-      "destination": "/",
-      "permanent": true
-    },
-    {
       "source": "/index.html",
       "destination": "/loja",
       "permanent": true
