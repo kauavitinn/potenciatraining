@@ -608,7 +608,7 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll(".feature-card, .training-card, .preview-item, .contact-card").forEach(element => observer.observe(element));
 
 const STORE_PRODUCTS = {
-    "curso-completo": { name: "Potência Training Completo", price: 80, checkoutUrl: "https://pay.cakto.com.br/34i8maa_1132201" }
+    "curso-completo": { name: "Potência Training Completo", price: 50, checkoutUrl: "https://pay.cakto.com.br/34i8maa_1132201" }
 };
 const CART_KEY = "potenciaStoreCart";
 const cartDrawer = document.getElementById("cartDrawer");
